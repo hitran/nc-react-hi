@@ -2,11 +2,12 @@ import React from 'react'
 import Head from 'next/head'
 import Layout from '../components/Layout/Layout'
 import styled from 'styled-components'
+import Router from 'next/router'
 import Button from '../components/ui-kits/Button/Button'
 import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
-import ViewMore from '../components/ViewMore/ViewMore'
 import { Card } from '../components/ui-kits/Card'
+import { baseUrl } from '../common/constants'
 
 export const HomeContainer = styled.div``
 
@@ -39,7 +40,7 @@ function Home(props) {
               imageURL={data.image}
               buttonGroups={
                 <>
-                  <ViewMore productId={data.id} />
+                  <Button onClick={() => Router.push(`/product/${data.id}`)}>View</Button>
                   <Button onClick={() => console.log('xxxx')}>Add to Cart</Button>
                 </>
               }
@@ -55,7 +56,7 @@ function Home(props) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch('https://min-shop.herokuapp.com/rest/product/')
+  const res = await fetch(`${baseUrl}/product/`)
   const productList = await res.json()
 
   return {
