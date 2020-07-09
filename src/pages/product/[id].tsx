@@ -20,16 +20,16 @@ const ProductDetail: React.FC<PropductDetailProps> = (props) => {
   )
 }
 
-// export async function getStaticPaths() {
-//   const res = await fetch(`${baseUrl}/product/`)
-//   const productList = await res.json()
+export async function getStaticPaths() {
+  const res = await fetch(`${baseUrl}/product/`)
+  const productList = await res.json()
 
-//   const paths = productList.data.map((product) => ({
-//     params: { id: product.id },
-//   }))
+  const paths = productList.data.map((product) => ({
+    params: { id: product.id },
+  }))
 
-//   return { paths, fallback: true }
-// }
+  return { paths, fallback: true }
+}
 
 export async function getStaticProps({ params }) {
   const { id } = params
