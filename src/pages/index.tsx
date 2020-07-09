@@ -41,7 +41,7 @@ function Home(props) {
               buttonGroups={
                 <>
                   <Button onClick={() => Router.push(`/product/${data.id}`)}>View</Button>
-                  <Button onClick={() => console.log('xxxx')}>Add to Cart</Button>
+                  <Button>Add to Cart</Button>
                 </>
               }
             >
