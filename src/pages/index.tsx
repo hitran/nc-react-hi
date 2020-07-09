@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import Button from '../components/ui-kits/Button/Button'
 import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
+import ViewMore from '../components/ViewMore/ViewMore'
 import { Card } from '../components/ui-kits/Card'
 
 export const HomeContainer = styled.div``
@@ -38,8 +39,8 @@ function Home(props) {
               imageURL={data.image}
               buttonGroups={
                 <>
-                  <Button>View</Button>
-                  <Button>Add to Cart</Button>
+                  <ViewMore productId={data.id} />
+                  <Button onClick={() => console.log('xxxx')}>Add to Cart</Button>
                 </>
               }
             >
