@@ -18,25 +18,28 @@ export const StyledHomeBody = styled.div`
   grid-template-columns: repeat(auto-fill, 220px);
   grid-gap: 10px;
 `
-
 interface IProduct {
   id: number
   image: string
   name: string
 }
 
-const Home: React.FC<[IProduct]> = (props) => {
-  const products = props
+interface IHomeProps {
+  data: [IProduct]
+}
+
+const Home: React.FC<IHomeProps> = (props) => {
+  const products = props.data
   if (!products || !products.length) {
     return <p>Not found</p>
   }
 
-  const onViewProduct = (data: IProduct): void => {
-    Router.push(`/product/${data.id}`)
+  const onViewProduct = (product: IProduct): void => {
+    Router.push(`/product/${product.id}`)
   }
 
   const onAddToCart = (id: number): void => {
-
+    console.log(id)
   }
 
   return (
@@ -48,18 +51,18 @@ const Home: React.FC<[IProduct]> = (props) => {
       <Header />
       <Layout>
         <StyledHomeBody>
-          {products.map((data) => (
+          {products.map((product) => (
             <Card
-              key={data.id}
-              imageURL={data.image}
+              key={product.id}
+              imageURL={product.image}
               buttonGroups={
                 <>
-                  <Button onClick={() => onViewProduct(data)}>View</Button>
-                  <Button onClick={() => onAddToCart(data.id)}>Add to Cart</Button>
+                  <Button onClick={() => onViewProduct(product)}>View</Button>
+                  <Button onClick={() => onAddToCart(product.id)}>Add to Cart</Button>
                 </>
               }
             >
-              {data.name}
+              {product.name}
             </Card>
           ))}
         </StyledHomeBody>

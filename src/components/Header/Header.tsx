@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text } from '../ui-kits/Text'
+import Link from 'next/link'
 import {
   StyledHeader,
   StyledHeaderMenu,
@@ -14,10 +14,14 @@ const Header: React.FC = () => {
       <StyledHeaderLogo>LOGO</StyledHeaderLogo>
       <StyledHeaderMenu>
         <StyledHeaderMenuItem>
-          <Text>Home</Text>
+          <Link href="/">
+            <a>Home</a>
+          </Link>
         </StyledHeaderMenuItem>
         <StyledHeaderMenuItem>
-          <Text>Products</Text>
+          <Link href="/product/4477805">
+            <a>Products</a>
+          </Link>
         </StyledHeaderMenuItem>
       </StyledHeaderMenu>
       <StyledHeaderButton>Login</StyledHeaderButton>
