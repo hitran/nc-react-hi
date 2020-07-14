@@ -19,10 +19,24 @@ export const StyledHomeBody = styled.div`
   grid-gap: 10px;
 `
 
-function Home(props) {
-  const products = props.productList.data
+interface IProduct {
+  id: number
+  image: string
+  name: string
+}
+
+const Home: React.FC<[IProduct]> = (props) => {
+  const products = props
   if (!products || !products.length) {
     return <p>Not found</p>
+  }
+
+  const onViewProduct = (data: IProduct): void => {
+    Router.push(`/product/${data.id}`)
+  }
+
+  const onAddToCart = (id: number): void => {
+
   }
 
   return (
@@ -40,8 +54,8 @@ function Home(props) {
               imageURL={data.image}
               buttonGroups={
                 <>
-                  <Button onClick={() => Router.push(`/product/${data.id}`)}>View</Button>
-                  <Button>Add to Cart</Button>
+                  <Button onClick={() => onViewProduct(data)}>View</Button>
+                  <Button onClick={() => onAddToCart(data.id)}>Add to Cart</Button>
                 </>
               }
             >
@@ -61,7 +75,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      productList,
+      data: productList.data,
     },
   }
 }

@@ -3,7 +3,7 @@ import { StyledButton } from './Button.styled'
 
 interface ButtonProps {
   children: React.ReactChild
-  onClick?(e: React.MouseEvent<HTMLElement>)
+  onClick?(e?: React.MouseEvent<HTMLElement>)
 }
 
 const Button: React.FC<ButtonProps> = (props) => {

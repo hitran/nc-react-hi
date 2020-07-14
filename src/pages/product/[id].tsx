@@ -6,15 +6,21 @@ import { Footer } from '../../components/Footer'
 
 export interface IProductDetail {
   description: string
+  name: string
 }
+
 export interface PropductDetailProps {
   product: IProductDetail
 }
+
 const ProductDetail: React.FC<PropductDetailProps> = (props) => {
   return (
     <>
       <Header />
-      <StyledProduct dangerouslySetInnerHTML={{ __html: props.product?.description }} />
+      <StyledProduct>
+        <h1>{props.product?.name}</h1>
+        <div dangerouslySetInnerHTML={{ __html: props.product?.description }} />
+      </StyledProduct>
       <Footer />
     </>
   )
