@@ -1,30 +1,75 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import {
   StyledHeader,
-  StyledHeaderMenu,
+  StyledMenu,
+  StyledMenuItem,
+  StyledLink,
+  StyledTopMenu,
   StyledHeaderLogo,
   StyledHeaderButton,
-  StyledHeaderMenuItem,
+  ButtonItem,
 } from './Header.styled'
 
 const Header: React.FC = () => {
+  const [isMenuShown, setIsMenuShown] = useState(false)
+
+  const toggleMenu = () => {
+    const newMenuState = !isMenuShown
+    setIsMenuShown(newMenuState)
+    console.log(isMenuShown)
+  }
+
   return (
     <StyledHeader>
-      <StyledHeaderLogo>LOGO</StyledHeaderLogo>
-      <StyledHeaderMenu>
-        <StyledHeaderMenuItem>
+      <StyledHeaderButton onClick={() => toggleMenu()} isMenuShown>
+        <ButtonItem></ButtonItem>
+        <ButtonItem></ButtonItem>
+        <ButtonItem></ButtonItem>
+      </StyledHeaderButton>
+      <StyledTopMenu>
+        <StyledHeaderLogo>
+          <img src="/logo.png" alt="logo" />
+        </StyledHeaderLogo>
+        <StyledMenu>
+          <StyledMenuItem>
+            <Link href="/">
+              <StyledLink>Home</StyledLink>
+            </Link>
+          </StyledMenuItem>
+
+          <StyledMenuItem position="right">
+            <Link href="/">
+              <StyledLink>Product</StyledLink>
+            </Link>
+          </StyledMenuItem>
+
+          <StyledMenuItem>
+            <Link href="/">
+              <StyledLink>Cart</StyledLink>
+            </Link>
+          </StyledMenuItem>
+
+          <StyledMenuItem>
+            <Link href="/">
+              <StyledLink>Favorite</StyledLink>
+            </Link>
+          </StyledMenuItem>
+        </StyledMenu>
+      </StyledTopMenu>
+
+      <StyledMenu>
+        <StyledMenuItem>
           <Link href="/">
-            <a>Home</a>
+            <StyledLink>Search</StyledLink>
           </Link>
-        </StyledHeaderMenuItem>
-        <StyledHeaderMenuItem>
-          <Link href="/product/4477805">
-            <a>Products</a>
+        </StyledMenuItem>
+        <StyledMenuItem>
+          <Link href="/">
+            <StyledLink>Login</StyledLink>
           </Link>
-        </StyledHeaderMenuItem>
-      </StyledHeaderMenu>
-      <StyledHeaderButton>Login</StyledHeaderButton>
+        </StyledMenuItem>
+      </StyledMenu>
     </StyledHeader>
   )
 }

@@ -1,8 +1,7 @@
 import React from 'react'
 import { baseUrl } from '../../common/constants'
 import StyledProduct from './Product.styled'
-import { Header } from '../../components/Header'
-import { Footer } from '../../components/Footer'
+import { Layout } from '../../components/Layout'
 
 export interface IProductDetail {
   description: string
@@ -15,23 +14,20 @@ export interface PropductDetailProps {
 
 const ProductDetail: React.FC<PropductDetailProps> = (props) => {
   return (
-    <>
-      <Header />
+    <Layout>
       <StyledProduct>
         <h1>{props.product?.name}</h1>
         <div dangerouslySetInnerHTML={{ __html: props.product?.description }} />
       </StyledProduct>
-      <Footer />
-    </>
+    </Layout>
   )
 }
-
 export async function getStaticPaths() {
   const res = await fetch(`${baseUrl}/product/`)
   const productList = await res.json()
 
-  const paths = productList.data.map((product) => ({
-    params: { id: product.id },
+  const paths = productList.map((product) => ({
+    params: { id: product.product_id.toString() },
   }))
 
   return { paths, fallback: true }
@@ -39,7 +35,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const { id } = params
-  const res = await fetch(`${baseUrl}/product/${id}`)
+  const res = await fetch(`${baseUrl}/product/${id}/detail/`)
   const product = await res.json()
 
   return {

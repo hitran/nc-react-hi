@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
 const StyledProduct = styled.div`
-  margin: 70px 10px 0 10px;
+  margin: 0 20px 0 20px;
 `
 export default StyledProduct

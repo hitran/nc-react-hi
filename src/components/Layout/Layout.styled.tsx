@@ -4,6 +4,7 @@ export const StyledLayout = styled.div`
   display: grid;
   box-sizing: border-box;
   margin: 0 auto;
-  margin-top: 84px;
+  margin-top: 140px;
   max-width: 1400px;
+  font-family: 'Roboto', sans-serif;
 `

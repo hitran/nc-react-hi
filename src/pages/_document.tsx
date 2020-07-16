@@ -50,6 +50,10 @@ class MyDocument extends Document {
             href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
             rel="stylesheet"
           />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" 
+            rel="stylesheet"
+          />
 
           <style type="text/css">{globalStyles}</style>
         </Head>

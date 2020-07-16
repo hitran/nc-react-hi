@@ -4,8 +4,6 @@ import Layout from '../components/Layout/Layout'
 import styled from 'styled-components'
 import Router from 'next/router'
 import Button from '../components/ui-kits/Button/Button'
-import { Header } from '../components/Header'
-import { Footer } from '../components/Footer'
 import { Card } from '../components/ui-kits/Card'
 import { baseUrl } from '../common/constants'
 
@@ -19,8 +17,8 @@ export const StyledHomeBody = styled.div`
   grid-gap: 10px;
 `
 interface IProduct {
-  id: number
-  image: string
+  product_id: number
+  img_url: string
   name: string
 }
 
@@ -30,12 +28,13 @@ interface IHomeProps {
 
 const Home: React.FC<IHomeProps> = (props) => {
   const products = props.data
+
   if (!products || !products.length) {
     return <p>Not found</p>
   }
 
   const onViewProduct = (product: IProduct): void => {
-    Router.push(`/product/${product.id}`)
+    Router.push(`/product/${product.product_id}`)
   }
 
   const onAddToCart = (id: number): void => {
@@ -45,29 +44,27 @@ const Home: React.FC<IHomeProps> = (props) => {
   return (
     <>
       <Head>
-        <title>STRANGS Template</title>
+        <title>Lezada | Biggest Online Ecommerce Platform</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
       <Layout>
         <StyledHomeBody>
           {products.map((product) => (
             <Card
-              key={product.id}
-              imageURL={product.image}
+              key={product.product_id}
+              imageURL={product.img_url}
               buttonGroups={
                 <>
                   <Button onClick={() => onViewProduct(product)}>View</Button>
-                  <Button onClick={() => onAddToCart(product.id)}>Add to Cart</Button>
+                  <Button onClick={() => onAddToCart(product.product_id)}>Add to Cart</Button>
                 </>
               }
             >
-              {product.name}
+              {product.name} - {product.product_id}
             </Card>
           ))}
         </StyledHomeBody>
       </Layout>
-      <Footer />
     </>
   )
 }
@@ -78,7 +75,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      data: productList.data,
+      data: productList,
     },
   }
 }
