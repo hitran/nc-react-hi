@@ -6,7 +6,6 @@ export const StyledHeader = styled.div`
   box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
   color: #202124;
   display: flex;
-  flex-direction: column;
   font-size: 14px;
   padding: 24px;
   position: fixed;
@@ -15,10 +14,6 @@ export const StyledHeader = styled.div`
   z-index: 200;
   box-sizing: border-box;
   justify-content: flex-start;
-  align-items: flex-end;
-  width: 50%;
-  height: 100vh;
-  right: ${(props) => (props.isMenuShown == true ? 0 : '-50%')};
 
   @media screen and (min-width: 678px) {
     width: 100%;
@@ -42,22 +37,47 @@ export const StyledHeaderLogo = styled.div`
 export const StyledMenu = styled.ul`
   display: flex;
   list-style: none;
-  justify-content: flex-end;
+  justify-content: flex-start;
   flex-direction: column;
+  width: 50%;
+  height: 100vh;
+  right: ${(props) => (props.isMenuShown ? '0' : '-50%')};
+  transition: 0.1s ease-in-out;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  background-color: white;
+  padding-top: 35px;
+
   @media screen and (min-width: 678px) {
     flex-direction: row;
+    right: auto;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    padding-top: 0;
   }
 `
 export const StyledMenuItem = styled.li`
-  margin: 20px 10px 0 10px;
   text-align: right;
   width: ${(props) => (props.type === 'logo' ? '60%' : 'auto')};
   font-weight: 500;
   color: #7e7e7e;
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
+  border-bottom: 1px solid black;
+  width: 90%;
+  text-align: center;
+  padding-bottom: 10px;
+  margin: 10px;
+
   @media screen and (min-width: 678px) {
     text-align: center;
+    border: none;
+    width: auto;
+    margin: 20px 10px 0 10px;
   }
 `
 export const ButtonItem = styled.div`
@@ -70,6 +90,7 @@ export const StyledHeaderButton = styled.div`
   position: absolute;
   left: -45px;
   top: 16px;
+
   @media screen and (min-width: 678px) {
     display: none;
   }
