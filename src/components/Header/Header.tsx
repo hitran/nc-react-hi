@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
+import { DropdownMenu } from '../ui-kits/DropdownMenu'
 import {
   StyledHeader,
-  StyledMenu,
   StyledMenuItem,
   StyledLink,
-  StyledHeaderLogo,
-  StyledHeaderButton,
+  StyledBurgerButton,
+  StyledCloseButton,
   ButtonItem,
+  StyledMenuLeft,
+  StyledMenuRight,
+  StyledMenuCenter,
 } from './Header.styled'
 
 const Header: React.FC = () => {
@@ -19,36 +22,44 @@ const Header: React.FC = () => {
     console.log(isMenuShown)
   }
 
+  const categoriesItems = [
+    {
+      label: 'Clothing',
+      href: '/',
+    },
+    {
+      label: 'Shoes',
+      href: '/',
+    },
+  ]
+
   return (
     <StyledHeader>
-      <StyledHeaderLogo>
-        <img src="/logo.png" alt="logo" />
-      </StyledHeaderLogo>
+      <StyledBurgerButton onClick={() => toggleMenu()}>
+        <ButtonItem></ButtonItem>
+        <ButtonItem></ButtonItem>
+        <ButtonItem></ButtonItem>
+      </StyledBurgerButton>
 
-      <StyledMenu isMenuShown={isMenuShown}>
-        <StyledHeaderButton onClick={() => toggleMenu()}>
+      <StyledMenuLeft isMenuShown={isMenuShown}>
+        <StyledCloseButton isMenuShown={isMenuShown} onClick={() => toggleMenu()}>
           <ButtonItem></ButtonItem>
           <ButtonItem></ButtonItem>
           <ButtonItem></ButtonItem>
-        </StyledHeaderButton>
+        </StyledCloseButton>
         <StyledMenuItem>
           <Link href="/">
             <StyledLink>Home</StyledLink>
           </Link>
         </StyledMenuItem>
+        <DropdownMenu label="Categories" dropdownItems={categoriesItems} />
+      </StyledMenuLeft>
 
-        <StyledMenuItem position="right">
-          <Link href="/">
-            <StyledLink>Product</StyledLink>
-          </Link>
-        </StyledMenuItem>
+      <StyledMenuCenter>
+        <img src="/logo.png" alt="logo" />
+      </StyledMenuCenter>
 
-        <StyledMenuItem>
-          <Link href="/">
-            <StyledLink>Cart</StyledLink>
-          </Link>
-        </StyledMenuItem>
-
+      <StyledMenuRight>
         <StyledMenuItem>
           <Link href="/">
             <StyledLink>Favorite</StyledLink>
@@ -64,7 +75,12 @@ const Header: React.FC = () => {
             <StyledLink>Login</StyledLink>
           </Link>
         </StyledMenuItem>
-      </StyledMenu>
+        <StyledMenuItem>
+          <Link href="/">
+            <StyledLink>Cart</StyledLink>
+          </Link>
+        </StyledMenuItem>
+      </StyledMenuRight>
     </StyledHeader>
   )
 }

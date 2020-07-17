@@ -1,38 +1,55 @@
 import styled from 'styled-components'
 
-export const StyledHeader = styled.div`
+export const StyledGrid = styled.div`
+  display: grid;
+`
+export const StyledMenuLeft = styled.ul`
+  grid-area: menuLeft;
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  left: ${(props) => (props.isMenuShown ? '0' : '-100%')};
+  background-color: white;
+  border: 1px solid black;
+  transition: 0.2s ease-in-out;
+  padding: 50px;
+`
+export const StyledMenuRight = styled(StyledGrid)`
+  grid-area: menuRight;
+  grid-template-columns: repeat(4, 1fr);
+`
+export const StyledMenuCenter = styled.div`
+  grid-area: menuCenter;
+  display: flex;
   align-items: center;
+  justify-content: center;
+`
+export const StyledBurgerButton = styled.div`
+  grid-area: burgerButton;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+`
+export const StyledCloseButton = styled(StyledBurgerButton)`
+  position: absolute;
+  right: 20px;
+  top: 30px;
+`
+
+export const StyledHeader = styled(StyledGrid)`
   background: #fff;
   box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
   color: #202124;
-  display: flex;
   font-size: 14px;
-  padding: 24px;
+  padding: 10px;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 200;
   box-sizing: border-box;
-  justify-content: flex-start;
-
-  @media screen and (min-width: 678px) {
-    width: 100%;
-    height: 100px;
-    justify-content: space-around;
-    flex-direction: row;
-    align-items: flex-start;
-    right: 0;
-  }
-`
-
-export const StyledHeaderLogo = styled.div`
-  position: fixed;
-  left: 20px;
-  top: 20px;
-
-  @media screen and (min-width: 678px) {
-    top: 40px;
-  }
+  grid-area: header;
+  grid-template-areas: 'burgerButton . . . . menuCenter menuRight';
 `
 export const StyledMenu = styled.ul`
   display: flex;
@@ -72,6 +89,7 @@ export const StyledMenuItem = styled.li`
   text-align: center;
   padding-bottom: 10px;
   margin: 10px;
+  list-style-type: none;
 
   @media screen and (min-width: 678px) {
     text-align: center;
@@ -86,24 +104,8 @@ export const ButtonItem = styled.div`
   height: 3px;
   margin: 3px;
 `
-export const StyledHeaderButton = styled.div`
-  position: absolute;
-  left: -45px;
-  top: 16px;
-
-  @media screen and (min-width: 678px) {
-    display: none;
-  }
-`
 
 export const StyledLink = styled.a`
   text-decoration: none;
   font-size: 20px;
-`
-export const StyledTopMenu = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  align-items: center;
-  position: relative;
 `
