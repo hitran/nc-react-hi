@@ -7,8 +7,8 @@ export const StyledLayout = styled.div`
   margin-top: 140px;
   max-width: 1400px;
   font-family: 'Roboto', sans-serif;
-  grid-template-areas:
+  /* grid-template-areas:
     'header header'
     'sidebar body'
-    'footer footer';
+    'footer footer'; */
 `

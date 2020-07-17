@@ -15,6 +15,7 @@ import {
 
 const Header: React.FC = () => {
   const [isMenuShown, setIsMenuShown] = useState(false)
+  const [isSearchShown, setIsSearchShown] = useState(false)
 
   const toggleMenu = () => {
     const newMenuState = !isMenuShown
@@ -32,6 +33,11 @@ const Header: React.FC = () => {
       href: '/',
     },
   ]
+
+  const onOpenSearch = () => {
+    const newSearchState = !isSearchShown
+    setIsSearchShown(newSearchState)
+  }
 
   return (
     <StyledHeader>
@@ -52,6 +58,16 @@ const Header: React.FC = () => {
             <StyledLink>Home</StyledLink>
           </Link>
         </StyledMenuItem>
+        <StyledMenuItem>
+          <Link href="/">
+            <StyledLink>Clothing</StyledLink>
+          </Link>
+        </StyledMenuItem>
+        <StyledMenuItem>
+          <Link href="/">
+            <StyledLink>Shoes</StyledLink>
+          </Link>
+        </StyledMenuItem>
         <DropdownMenu label="Categories" dropdownItems={categoriesItems} />
       </StyledMenuLeft>
 
@@ -65,8 +81,8 @@ const Header: React.FC = () => {
             <StyledLink>Favorite</StyledLink>
           </Link>
         </StyledMenuItem>
-        <StyledMenuItem>
-          <Link href="/">
+        <StyledMenuItem onClick={() => onOpenSearch()}>
+          <Link href="">
             <StyledLink>Search</StyledLink>
           </Link>
         </StyledMenuItem>

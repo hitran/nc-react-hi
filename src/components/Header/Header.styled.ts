@@ -49,7 +49,11 @@ export const StyledHeader = styled(StyledGrid)`
   z-index: 200;
   box-sizing: border-box;
   grid-area: header;
-  grid-template-areas: 'burgerButton . . . . menuCenter menuRight';
+  grid-template-areas: 'burgerButton . .  menuCenter menuRight';
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #7e7e7e;
 `
 export const StyledMenu = styled.ul`
   display: flex;
@@ -80,10 +84,6 @@ export const StyledMenu = styled.ul`
 export const StyledMenuItem = styled.li`
   text-align: right;
   width: ${(props) => (props.type === 'logo' ? '60%' : 'auto')};
-  font-weight: 500;
-  color: #7e7e7e;
-  font-family: 'Roboto', sans-serif;
-  font-size: 16px;
   border-bottom: 1px solid black;
   width: 90%;
   text-align: center;

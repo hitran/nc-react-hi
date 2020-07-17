@@ -1,12 +1,13 @@
 import styled from 'styled-components'
 
-export const StyledMenuItem = styled.div`
-  border: 1px solid black;
+export const StyledMenuItem = styled.li`
   text-align: center;
   position: relative;
+  padding: 10px;
+  list-style-type: none;
 `
 
-export const StyledDropdownWrapper = styled.div`
+export const StyledDropdownWrapper = styled.ul`
   position: absolute;
   top: 101%;
   left: 0;
@@ -17,9 +18,10 @@ export const StyledDropdownWrapper = styled.div`
 `
 
 export const StyledDropdown = styled(StyledMenuItem)`
-  &:hover ${StyledDropdownWrapper} {
-    opacity: 1;
-  }
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: #7e7e7e;
 `
 
-export const StyledDropdownItem = styled(StyledMenuItem)``
+export const StyledDropdownItem = styled.li``
