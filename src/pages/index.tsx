@@ -1,9 +1,12 @@
 import React from 'react'
 import Head from 'next/head'
+import { useQuery } from '@apollo/react-hooks'
+import withApollo from '../utils/withApollo'
 import Layout from '../components/Layout/Layout'
 import styled from 'styled-components'
 import { Card } from '../components/ui-kits/Card'
 import { baseUrl } from '../common/constants'
+import { GET_PRODUCTS } from '../graphql/product/product.query'
 
 export const HomeContainer = styled.div``
 
@@ -19,20 +22,20 @@ export const StyledHomeBody = styled.div`
     grid-gap: 30px;
   }
 `
-interface IProduct {
-  productId: number
-  imgUrl: string
-  name: string
-  price: number
-}
 
-interface IHomeProps {
-  data: [IProduct]
-}
+const Home: React.FC = () => {
+  // const products = props.data
 
-const Home: React.FC<IHomeProps> = (props) => {
-  const products = props.data
+  const { loading, error, data } = useQuery(GET_PRODUCTS, {
+    variables: {
+      input: {
+        keyword: 'samsung',
+        page: 1,
+      },
+    },
+  })
 
+  const products = data?.getAllProduct?.data
   if (!products || !products.length) {
     return <p>Not found</p>
   }
@@ -60,15 +63,4 @@ const Home: React.FC<IHomeProps> = (props) => {
   )
 }
 
-export async function getStaticProps() {
-  const res = await fetch(`${baseUrl}/product/?keyword="ao-so-mi-nu"`)
-  const productList = await res.json()
-
-  return {
-    props: {
-      data: productList.data,
-    },
-  }
-}
-
-export default Home
+export default withApollo({ ssr: true })(Home)

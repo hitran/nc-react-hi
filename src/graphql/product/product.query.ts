@@ -11,7 +11,7 @@ export const GET_PRODUCTS = gql`
         finalPrice
         promotionPercent
         namePath
-        image
+        imgUrl
       }
     }
   }

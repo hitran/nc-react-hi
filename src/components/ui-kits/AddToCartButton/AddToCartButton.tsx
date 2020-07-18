@@ -13,11 +13,11 @@ const AddToCartButton: React.FC<AddToCartProps> = (props) => {
 
   return (
     <StyledAddToCartButton onClick={handleCartButtonClick} isHeader={props.isHeader}>
-      {props.isHeader ? 
-      <ShoppingOutlined /> :
-      <StyledAddToCartItem>Add To Cart</StyledAddToCartItem>
-      }
-      
+      {props.isHeader ? (
+        <ShoppingOutlined />
+      ) : (
+        <StyledAddToCartItem>ADD TO CART</StyledAddToCartItem>
+      )}
     </StyledAddToCartButton>
   )
 }

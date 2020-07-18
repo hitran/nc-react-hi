@@ -4,6 +4,7 @@ import StyledProduct from './Product.styled'
 import { Layout } from '../../components/Layout'
 import { ProductDetail } from '../../components/ProductDetail'
 import { ProductCarousel } from '../../components/ProductCarousel'
+import withApollo from '../../utils/withApollo'
 
 export interface IProductDetail {
   description: string
@@ -27,27 +28,27 @@ const Product: React.FC<PropductDetailProps> = (props) => {
     </Layout>
   )
 }
-export async function getStaticPaths() {
-  const res = await fetch(`${baseUrl}/product/?keyword="ao-so-mi-nu"`)
-  const productList = await res.json()
+// export async function getStaticPaths() {
+//   const res = await fetch(`${baseUrl}/product/?keyword="ao-so-mi-nu"`)
+//   const productList = await res.json()
 
-  const paths = productList.data.map((product) => ({
-    params: { id: product.productId.toString() },
-  }))
+//   const paths = productList.data.map((product) => ({
+//     params: { id: product.productId.toString() },
+//   }))
 
-  return { paths, fallback: true }
-}
+//   return { paths, fallback: true }
+// }
 
-export async function getStaticProps({ params }) {
-  const { id } = params
-  const res = await fetch(`${baseUrl}/product/${id}/`)
-  const product = await res.json()
+// export async function getStaticProps({ params }) {
+//   const { id } = params
+//   const res = await fetch(`${baseUrl}/product/${id}/`)
+//   const product = await res.json()
 
-  return {
-    props: {
-      product,
-    },
-  }
-}
+//   return {
+//     props: {
+//       product,
+//     },
+//   }
+// }
 
-export default Product
+export default withApollo({ ssr: true })(Product)
