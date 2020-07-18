@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { DropdownMenu } from '../ui-kits/DropdownMenu'
+import { FavoriteButton } from '../ui-kits/FavoriteButton'
+import { AddToCartButton } from '../ui-kits/AddToCartButton'
+import { SearchButton } from '../ui-kits/SearchButton'
+import { LoginButton } from '../ui-kits/LoginButton'
+import { MenuButton } from '../ui-kits/MenuButton'
 import {
   StyledHeader,
   StyledMenuItem,
   StyledLink,
-  StyledBurgerButton,
-  StyledCloseButton,
-  ButtonItem,
   StyledMenuLeft,
   StyledMenuRight,
   StyledMenuCenter,
@@ -41,18 +43,11 @@ const Header: React.FC = () => {
 
   return (
     <StyledHeader>
-      <StyledBurgerButton onClick={() => toggleMenu()}>
-        <ButtonItem></ButtonItem>
-        <ButtonItem></ButtonItem>
-        <ButtonItem></ButtonItem>
-      </StyledBurgerButton>
+      <MenuButton onClick={() => toggleMenu()} />
 
       <StyledMenuLeft isMenuShown={isMenuShown}>
-        <StyledCloseButton isMenuShown={isMenuShown} onClick={() => toggleMenu()}>
-          <ButtonItem></ButtonItem>
-          <ButtonItem></ButtonItem>
-          <ButtonItem></ButtonItem>
-        </StyledCloseButton>
+        <MenuButton onClick={toggleMenu} isClosed={true} />
+
         <StyledMenuItem>
           <Link href="/">
             <StyledLink>Home</StyledLink>
@@ -72,28 +67,40 @@ const Header: React.FC = () => {
       </StyledMenuLeft>
 
       <StyledMenuCenter>
-        <img src="/logo.png" alt="logo" />
+        <Link href="/">
+          <StyledLink>
+            <img src="/logo.png" alt="logo" />
+          </StyledLink>
+        </Link>
       </StyledMenuCenter>
 
       <StyledMenuRight>
         <StyledMenuItem>
           <Link href="/">
-            <StyledLink>Favorite</StyledLink>
+            <StyledLink>
+              <FavoriteButton isHeader={true} />
+            </StyledLink>
           </Link>
         </StyledMenuItem>
         <StyledMenuItem onClick={() => onOpenSearch()}>
           <Link href="">
-            <StyledLink>Search</StyledLink>
+            <StyledLink>
+              <SearchButton />
+            </StyledLink>
           </Link>
         </StyledMenuItem>
         <StyledMenuItem>
           <Link href="/">
-            <StyledLink>Login</StyledLink>
+            <StyledLink>
+              <LoginButton />
+            </StyledLink>
           </Link>
         </StyledMenuItem>
         <StyledMenuItem>
           <Link href="/">
-            <StyledLink>Cart</StyledLink>
+            <StyledLink>
+              <AddToCartButton isHeader={true} />
+            </StyledLink>
           </Link>
         </StyledMenuItem>
       </StyledMenuRight>

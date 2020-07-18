@@ -23,11 +23,11 @@ const ProductDetail: React.FC<PropductDetailProps> = (props) => {
   )
 }
 export async function getStaticPaths() {
-  const res = await fetch(`${baseUrl}/product/`)
+  const res = await fetch(`${baseUrl}/product/?keyword="ao-so-mi-nu"`)
   const productList = await res.json()
 
-  const paths = productList.map((product) => ({
-    params: { id: product.product_id.toString() },
+  const paths = productList.data.map((product) => ({
+    params: { id: product.productId.toString() },
   }))
 
   return { paths, fallback: true }
@@ -35,7 +35,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const { id } = params
-  const res = await fetch(`${baseUrl}/product/${id}/detail/`)
+  const res = await fetch(`${baseUrl}/product/${id}/`)
   const product = await res.json()
 
   return {

@@ -10,9 +10,12 @@ export const StyledMenuLeft = styled.ul`
   width: 100%;
   left: ${(props) => (props.isMenuShown ? '0' : '-100%')};
   background-color: white;
-  border: 1px solid black;
   transition: 0.2s ease-in-out;
   padding: 50px;
+
+  @media screen and (min-width: 678px) {
+    width: 30%;
+  }
 `
 export const StyledMenuRight = styled(StyledGrid)`
   grid-area: menuRight;
@@ -23,18 +26,6 @@ export const StyledMenuCenter = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`
-export const StyledBurgerButton = styled.div`
-  grid-area: burgerButton;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-`
-export const StyledCloseButton = styled(StyledBurgerButton)`
-  position: absolute;
-  right: 20px;
-  top: 30px;
 `
 
 export const StyledHeader = styled(StyledGrid)`
@@ -49,11 +40,15 @@ export const StyledHeader = styled(StyledGrid)`
   z-index: 200;
   box-sizing: border-box;
   grid-area: header;
-  grid-template-areas: 'burgerButton . .  menuCenter menuRight';
+  grid-template-areas: 'burgerButton menuCenter menuRight';
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   font-weight: 500;
   color: #7e7e7e;
+
+  @media screen and (min-width: 678px) {
+    grid-template-areas: 'burgerButton menuCenter . . . . . . . . menuRight';
+  }
 `
 export const StyledMenu = styled.ul`
   display: flex;
@@ -84,7 +79,6 @@ export const StyledMenu = styled.ul`
 export const StyledMenuItem = styled.li`
   text-align: right;
   width: ${(props) => (props.type === 'logo' ? '60%' : 'auto')};
-  border-bottom: 1px solid black;
   width: 90%;
   text-align: center;
   padding-bottom: 10px;
@@ -97,12 +91,6 @@ export const StyledMenuItem = styled.li`
     width: auto;
     margin: 20px 10px 0 10px;
   }
-`
-export const ButtonItem = styled.div`
-  width: 30px;
-  background-color: black;
-  height: 3px;
-  margin: 3px;
 `
 
 export const StyledLink = styled.a`

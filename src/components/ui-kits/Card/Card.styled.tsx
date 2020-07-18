@@ -6,22 +6,37 @@ export const StyledCard = styled.div`
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
   display: grid;
   grid-template-rows: 1fr auto;
-  padding: 10px;
   grid-gap: 10px;
+`
+export const StyledText = styled.p`
+  margin-bottom: 10px;
+  font-size: 1rem;
 `
 
 export const StyledCardImage = styled.img`
-  max-width: 100px;
   justify-self: center;
 `
 
 export const StyledCardBody = styled.div``
 
-export const StyledCardButtonGroup = styled.div`
+export const StyledTitle = styled(StyledText)`
+  text-decoration: none;
+  text-transform: uppercase;
+  line-height: 1.5;
+  font-weight: 700;
+  &:hover {
+    text-decoration: underline;
+  }
+`
+
+export const StyledPrice = styled(StyledText)`
+`
+
+export const StyledButtonGroup = styled.div`
   display: grid;
-  grid-gap: 5px;
+  align-items: center;
+  grid-template-columns: 1fr 4fr;
+  height: 40px;
 `

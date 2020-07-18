@@ -1,19 +1,42 @@
 import React from 'react'
-import { StyledCard, StyledCardImage, StyledCardBody, StyledCardButtonGroup } from './Card.styled'
+import {
+  StyledCard,
+  StyledCardImage,
+  StyledCardBody,
+  StyledTitle,
+  StyledPrice,
+  StyledButtonGroup,
+} from './Card.styled'
+
+import { FavoriteButton } from '../FavoriteButton'
+import Router from 'next/router'
+import { AddToCartButton } from '../AddToCartButton'
 
 interface CardProps {
   children: React.ReactNode
   onClick?(e: any): void
-  buttonGroups?: React.ReactNode
   imageURL: string
+  url: string
+  name: string
+  price: number
 }
 
 const Card: React.FC<CardProps> = (props) => {
+  const onViewProduct = (): void => {
+    Router.push(props.url)
+  }
+
   return (
-    <StyledCard>
+    <StyledCard onClick={() => onViewProduct()}>
       <StyledCardImage src={props.imageURL} />
-      <StyledCardBody>{props.children}</StyledCardBody>
-      {props.buttonGroups && <StyledCardButtonGroup>{props.buttonGroups}</StyledCardButtonGroup>}
+      <StyledCardBody>
+        <StyledTitle>{props.name}</StyledTitle>
+        <StyledPrice>{props.price.toLocaleString()} VND</StyledPrice>
+        <StyledButtonGroup>
+          <FavoriteButton></FavoriteButton>
+          <AddToCartButton></AddToCartButton>
+        </StyledButtonGroup>
+      </StyledCardBody>
     </StyledCard>
   )
 }

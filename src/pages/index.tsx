@@ -2,8 +2,6 @@ import React from 'react'
 import Head from 'next/head'
 import Layout from '../components/Layout/Layout'
 import styled from 'styled-components'
-import Router from 'next/router'
-import Button from '../components/ui-kits/Button/Button'
 import { Card } from '../components/ui-kits/Card'
 import { baseUrl } from '../common/constants'
 
@@ -13,13 +11,19 @@ export const StyledHomeBody = styled.div`
   display: grid;
   justify-content: center;
   position: relative;
-  grid-template-columns: repeat(auto-fill, 220px);
-  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fill, 300px);
+  grid-gap: 15px;
+
+  @media screen and (min-width: 678px) {
+    grid-template-columns: repeat(auto-fill, 250px);
+    grid-gap: 4%;
+  }
 `
 interface IProduct {
-  product_id: number
-  img_url: string
+  productId: number
+  imgUrl: string
   name: string
+  price: number
 }
 
 interface IHomeProps {
@@ -33,14 +37,6 @@ const Home: React.FC<IHomeProps> = (props) => {
     return <p>Not found</p>
   }
 
-  const onViewProduct = (product: IProduct): void => {
-    Router.push(`/product/${product.product_id}`)
-  }
-
-  const onAddToCart = (id: number): void => {
-    console.log(id)
-  }
-
   return (
     <>
       <Head>
@@ -51,17 +47,12 @@ const Home: React.FC<IHomeProps> = (props) => {
         <StyledHomeBody>
           {products.map((product) => (
             <Card
-              key={product.product_id}
-              imageURL={product.img_url}
-              buttonGroups={
-                <>
-                  <Button onClick={() => onViewProduct(product)}>View</Button>
-                  <Button onClick={() => onAddToCart(product.product_id)}>Add to Cart</Button>
-                </>
-              }
-            >
-              {product.name} - {product.product_id}
-            </Card>
+              key={product.productId}
+              imageURL={product.imgUrl}
+              url={`/product/${product.productId}`}
+              name={product.name}
+              price={product.price}
+            />
           ))}
         </StyledHomeBody>
       </Layout>
@@ -70,12 +61,12 @@ const Home: React.FC<IHomeProps> = (props) => {
 }
 
 export async function getStaticProps() {
-  const res = await fetch(`${baseUrl}/product/`)
+  const res = await fetch(`${baseUrl}/product/?keyword="ao-so-mi-nu"`)
   const productList = await res.json()
 
   return {
     props: {
-      data: productList,
+      data: productList.data,
     },
   }
 }
