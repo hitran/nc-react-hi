@@ -2,7 +2,7 @@ import React from 'react'
 import { StyledSearchButton } from './SearchButton.styled'
 import { SearchOutlined } from '@ant-design/icons'
 
-const SearchButton = () => {
+const SearchButton: React.FC = () => {
   return (
     <StyledSearchButton>
       <SearchOutlined />

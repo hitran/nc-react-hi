@@ -51,8 +51,15 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
           <link
-            href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" 
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap"
             rel="stylesheet"
+          />
+
+          <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+            integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+            crossOrigin="anonymous"
           />
 
           <style type="text/css">{globalStyles}</style>

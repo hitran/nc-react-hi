@@ -6,7 +6,7 @@ interface FavoriteButtonProps {
   isHeader?: boolean
 }
 
-const FavoriteButton: FavoriteButtonProps = (props) => {
+const FavoriteButton: React.FC<FavoriteButtonProps> = (props) => {
   return (
     <StyledFavoriteButton isHeader={props.isHeader}>
       <HeartOutlined />

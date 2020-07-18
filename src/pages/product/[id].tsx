@@ -2,23 +2,28 @@ import React from 'react'
 import { baseUrl } from '../../common/constants'
 import StyledProduct from './Product.styled'
 import { Layout } from '../../components/Layout'
+import { ProductDetail } from '../../components/ProductDetail'
+import { ProductCarousel } from '../../components/ProductCarousel'
 
 export interface IProductDetail {
   description: string
   name: string
+  images: string[]
 }
 
 export interface PropductDetailProps {
   product: IProductDetail
 }
 
-const ProductDetail: React.FC<PropductDetailProps> = (props) => {
+const Product: React.FC<PropductDetailProps> = (props) => {
   return (
     <Layout>
+      <h1>{props.product?.name}</h1>
       <StyledProduct>
-        <h1>{props.product?.name}</h1>
-        <div dangerouslySetInnerHTML={{ __html: props.product?.description }} />
+        <ProductCarousel imageList={props.product?.images} />
+        <ProductDetail />
       </StyledProduct>
+      <div dangerouslySetInnerHTML={{ __html: props.product?.description }} />
     </Layout>
   )
 }
@@ -45,4 +50,4 @@ export async function getStaticProps({ params }) {
   }
 }
 
-export default ProductDetail
+export default Product

@@ -13,7 +13,6 @@ import Router from 'next/router'
 import { AddToCartButton } from '../AddToCartButton'
 
 interface CardProps {
-  children: React.ReactNode
   onClick?(e: any): void
   imageURL: string
   url: string

@@ -11,8 +11,8 @@ export const StyledCard = styled.div`
   grid-gap: 10px;
 `
 export const StyledText = styled.p`
-  margin-bottom: 10px;
   font-size: 1rem;
+  margin-bottom: 10px;
 `
 
 export const StyledCardImage = styled.img`
@@ -26,13 +26,15 @@ export const StyledTitle = styled(StyledText)`
   text-transform: uppercase;
   line-height: 1.5;
   font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   &:hover {
     text-decoration: underline;
   }
 `
 
-export const StyledPrice = styled(StyledText)`
-`
+export const StyledPrice = styled(StyledText)``
 
 export const StyledButtonGroup = styled.div`
   display: grid;

@@ -16,7 +16,7 @@ export const StyledHomeBody = styled.div`
 
   @media screen and (min-width: 678px) {
     grid-template-columns: repeat(auto-fill, 250px);
-    grid-gap: 4%;
+    grid-gap: 30px;
   }
 `
 interface IProduct {
