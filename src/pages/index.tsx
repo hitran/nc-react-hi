@@ -5,7 +5,6 @@ import withApollo from '../utils/withApollo'
 import Layout from '../components/Layout/Layout'
 import styled from 'styled-components'
 import { Card } from '../components/ui-kits/Card'
-import { baseUrl } from '../common/constants'
 import { GET_PRODUCTS } from '../graphql/product/product.query'
 
 export const HomeContainer = styled.div``
