@@ -16,3 +16,13 @@ export const GET_PRODUCTS = gql`
     }
   }
 `
+export const GET_PRODUCT_DETAILS = gql`
+  query GetProductDetail($input: GetProductDetailInput!) {
+    getProductDetail(input: $input) {
+      id
+      name
+      imgUrl
+      description
+    }
+  }
+`
