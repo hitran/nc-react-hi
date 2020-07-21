@@ -26,3 +26,13 @@ export const GET_PRODUCT_DETAILS = gql`
     }
   }
 `
+
+export const QUERY_TODO = gql`
+  query ReadTodo($id: Int!) {
+    todo(id: $id) {
+      id
+      text
+      completed
+    }
+  }
+`

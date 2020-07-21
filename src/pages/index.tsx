@@ -22,7 +22,7 @@ export const StyledHomeBody = styled.div`
   }
 `
 
-const Home: React.FC = () => {
+const Home: React.FC = (props) => {
   const { loading, error, data } = useQuery(GET_PRODUCTS, {
     variables: {
       input: {
@@ -32,10 +32,21 @@ const Home: React.FC = () => {
     },
   })
 
+  if (loading) return null
+  if (error) return `Error! ${error}`
   const products = data?.getAllProduct?.data
+
   if (!products || !products.length) {
     return <p>Not found</p>
   }
+
+  // const { todo } = readQuery({
+  //   variables: {
+  //     id: 5,
+  //   },
+  // })
+
+  console.log(useQuery)
 
   return (
     <>
