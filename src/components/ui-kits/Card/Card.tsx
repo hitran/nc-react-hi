@@ -1,16 +1,15 @@
 import React from 'react'
+import Router from 'next/router'
+import { ApolloClient } from 'apollo-boost'
 import {
   StyledCard,
   StyledCardImage,
   StyledCardBody,
   StyledTitle,
   StyledPrice,
-  StyledButtonGroup,
 } from './Card.styled'
 
-import { FavoriteButton } from '../FavoriteButton'
-import Router from 'next/router'
-import { AddToCartButton } from '../AddToCartButton'
+import { ActionBtnGroup } from '../ActionBtnGroup'
 
 interface CardProps {
   onClick?(e: any): void
@@ -18,23 +17,22 @@ interface CardProps {
   url: string
   name: string
   price: number
+  // client: ApolloClient<any>
 }
 
 const Card: React.FC<CardProps> = (props) => {
   const onViewProduct = (): void => {
     Router.push(props.url)
   }
+  //console.log(props.client)
 
   return (
-    <StyledCard onClick={() => onViewProduct()}>
-      <StyledCardImage src={props.imageURL} />
+    <StyledCard>
+      <StyledCardImage src={props.imageURL} onClick={onViewProduct} />
       <StyledCardBody>
         <StyledTitle>{props.name}</StyledTitle>
         <StyledPrice>{props.price.toLocaleString()} VND</StyledPrice>
-        <StyledButtonGroup>
-          <FavoriteButton></FavoriteButton>
-          <AddToCartButton></AddToCartButton>
-        </StyledButtonGroup>
+        <ActionBtnGroup />
       </StyledCardBody>
     </StyledCard>
   )

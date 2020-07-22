@@ -12,6 +12,7 @@ export interface IProductDetail {
   description: string
   name: string
   images: string[]
+  price: number
 }
 
 export interface PropductDetailProps {
@@ -36,10 +37,13 @@ const Product: React.FC = () => {
 
   return (
     <Layout>
-      <h1>{product?.name}</h1>
       <StyledProduct>
-        <ProductCarousel media={product?.media} />
-        <ProductDetail />
+        <ProductCarousel images={product?.images} />
+        <ProductDetail
+          productName={product?.name}
+          productPrice={product?.price}
+          sku={product?.sku}
+        />
       </StyledProduct>
       <div dangerouslySetInnerHTML={{ __html: product?.description }} />
     </Layout>

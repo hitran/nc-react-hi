@@ -23,16 +23,18 @@ export const GET_PRODUCT_DETAILS = gql`
       name
       imgUrl
       description
+      images
+      price
+      sku
     }
   }
 `
 
-export const QUERY_TODO = gql`
-  query ReadTodo($id: Int!) {
-    todo(id: $id) {
+export const GET_SHOPPING_CART_DATA = gql`
+  query GetShoppingCartData {
+    shoppingCart @client {
       id
-      text
-      completed
+      quantity
     }
   }
 `

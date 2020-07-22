@@ -22,7 +22,7 @@ const Header: React.FC = () => {
   const toggleMenu = () => {
     const newMenuState = !isMenuShown
     setIsMenuShown(newMenuState)
-    console.log(isMenuShown)
+    //console.log(isMenuShown)
   }
 
   const categoriesItems = [

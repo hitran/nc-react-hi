@@ -36,10 +36,3 @@ export const StyledTitle = styled(StyledText)`
 `
 
 export const StyledPrice = styled(StyledText)``
-
-export const StyledButtonGroup = styled.div`
-  display: grid;
-  align-items: center;
-  grid-template-columns: 1fr 4fr;
-  height: 40px;
-`

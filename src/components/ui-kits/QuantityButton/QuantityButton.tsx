@@ -14,7 +14,7 @@ const QuantityButton = () => {
         <PlusOutlined />
       </StyledAddButton>
 
-      <StyledQuantityText />
+      <StyledQuantityText>1</StyledQuantityText>
 
       <StyledSubtractButton>
         <MinusOutlined />

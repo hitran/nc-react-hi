@@ -1,15 +1,10 @@
 import React from 'react'
 import { baseImgUrl } from '../../common/constants'
 import Carousel from 'react-bootstrap/Carousel'
-import { StyledProductCarousel } from './ProductCarousel.styled'
-
-interface IProductMedia {
-  image: string
-  type: string
-}
+import { StyledProductCarousel, StyledCarouselImage } from './ProductCarousel.styled'
 
 interface IProductCarouselProps {
-  media: IProductMedia[]
+  images: string[]
 }
 
 const ProductCarousel: React.FC<IProductCarouselProps> = (props) => {
@@ -23,9 +18,9 @@ const ProductCarousel: React.FC<IProductCarouselProps> = (props) => {
   return (
     <StyledProductCarousel>
       <Carousel {...settings}>
-        {props.media?.map((item, i) => (
+        {props.images?.map((item, i) => (
           <Carousel.Item key={i}>
-            <img key={i} src={`${baseImgUrl}${item.image}`} alt="" />
+            <StyledCarouselImage key={i} src={`${baseImgUrl}${item}`} alt="" />
           </Carousel.Item>
         ))}
       </Carousel>

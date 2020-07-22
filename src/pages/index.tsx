@@ -1,11 +1,11 @@
 import React from 'react'
 import Head from 'next/head'
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery, useApolloClient, ApolloProvider } from '@apollo/react-hooks'
 import withApollo from '../utils/withApollo'
 import Layout from '../components/Layout/Layout'
 import styled from 'styled-components'
 import { Card } from '../components/ui-kits/Card'
-import { GET_PRODUCTS } from '../graphql/product/product.query'
+import { GET_PRODUCTS, GET_SHOPPING_CART_DATA } from '../graphql/product/product.query'
 
 export const HomeContainer = styled.div``
 
@@ -22,7 +22,8 @@ export const StyledHomeBody = styled.div`
   }
 `
 
-const Home: React.FC = (props) => {
+const Home: React.FC = () => {
+  const client = useApolloClient()
   const { loading, error, data } = useQuery(GET_PRODUCTS, {
     variables: {
       input: {
@@ -40,16 +41,9 @@ const Home: React.FC = (props) => {
     return <p>Not found</p>
   }
 
-  // const { todo } = readQuery({
-  //   variables: {
-  //     id: 5,
-  //   },
-  // })
-
-  console.log(useQuery)
 
   return (
-    <>
+    <ApolloProvider client={client}>
       <Head>
         <title>Lezada | Biggest Online Ecommerce Platform</title>
         <link rel="icon" href="/favicon.ico" />
@@ -67,7 +61,7 @@ const Home: React.FC = (props) => {
           ))}
         </StyledHomeBody>
       </Layout>
-    </>
+    </ApolloProvider>
   )
 }
 
