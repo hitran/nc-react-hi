@@ -4,7 +4,7 @@ import { FavoriteButton } from '../FavoriteButton'
 import { AddToCartButton } from '../AddToCartButton'
 
 interface IActionBtnGroup {
-  productId: number
+  productId?: number
 }
 const ActionBtnGroup: React.FC<IActionBtnGroup> = (props) => {
   return (

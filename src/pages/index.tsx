@@ -23,7 +23,7 @@ export const StyledHomeBody = styled.div`
 `
 
 const Home: React.FC = () => {
-  const client = useApolloClient()
+  // const client = useApolloClient()
   const { loading, error, data } = useQuery(GET_PRODUCTS, {
     variables: {
       input: {
@@ -60,7 +60,7 @@ const Home: React.FC = () => {
               url={`/product/${product.id}`}
               name={product.name}
               price={product.price}
-              onClick={() => updateCurrentProduct(product.id)}
+              // onClick={() => updateCurrentProduct(product.id)}
               productId={product.id}
             />
           ))}

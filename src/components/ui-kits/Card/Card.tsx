@@ -32,7 +32,7 @@ const Card: React.FC<CardProps> = (props) => {
       <StyledCardBody>
         <StyledTitle>{props.name}</StyledTitle>
         <StyledPrice>{props.price.toLocaleString()} VND</StyledPrice>
-        <ActionBtnGroup productId= {props.productId}/>
+        <ActionBtnGroup productId={props.productId} />
       </StyledCardBody>
     </StyledCard>
   )

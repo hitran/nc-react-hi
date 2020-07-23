@@ -26,7 +26,6 @@ export const GET_PRODUCT_DETAILS = gql`
       images
       price
       sku
-      shoppingCart @client
     }
   }
 `

@@ -19,23 +19,25 @@ export interface PropductDetailProps {
   product: IProductDetail
 }
 
-const Product: React.FC = () => {
+const Product: React.FC<PropductDetailProps> = (props) => {
   const router = useRouter()
   const { id } = router.query
   const { loading, error, data } = useQuery(GET_PRODUCT_DETAILS, {
     variables: {
       input: {
-        id: parseInt(id, 10),
+        id: id,
       },
     },
   })
 
+  if (loading) return null
+  if (error) return `Error! ${error}`
   const product = data?.getProductDetail
   if (!product) {
     return <p>Not found</p>
   }
-  const shoppingCart = useQuery(GET_SHOPPING_CART)
-  console.log(shoppingCart)
+  // const shoppingCart = useQuery(GET_SHOPPING_CART)
+  // console.log(shoppingCart)
 
   return (
     <Layout>

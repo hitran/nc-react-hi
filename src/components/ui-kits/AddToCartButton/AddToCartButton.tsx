@@ -13,13 +13,13 @@ interface IAddToCartProps {
 }
 
 const AddToCartButton: React.FC<IAddToCartProps> = (props) => {
-  const client = useApolloClient()
-  client.writeData({
-    data: {
-      shoppingCart: []
-    }
-  })
-  const shoppingCart = useQuery(GET_SHOPPING_CART);
+  // const client = useApolloClient()
+  // client.writeData({
+  //   data: {
+  //     shoppingCart: []
+  //   }
+  // })
+  // const shoppingCart = useQuery(GET_SHOPPING_CART);
   // const addToCart = () => {
   //   const currentCart = JSON.parse(sessionStorage.getItem("shoppingCart")) || []
   //   const selectedProduct =  {id: props.productId, quantity: 1}
@@ -39,26 +39,24 @@ const AddToCartButton: React.FC<IAddToCartProps> = (props) => {
   //   console.log(client)
   // }
 
-  const [
-    updateCart, { data }
-  ] = useMutation(
-    SET_SHOPPING_CART,
-    {
-      variables: { launchIds: shoppingCart.data.shoppingCart },
-      refetchQueries: shoppingCart.data.shoppingCart.map(id => ({
-        query: GET_SHOPPING_CART,
-        variables: { id },
-      })),
-      update(cache) {
-        cache.writeData({ data: { shoppingCart: [] } });
-      }
-    }
-  );
+  // const [
+  //   updateCart, { data }
+  // ] = useMutation(
+  //   SET_SHOPPING_CART,
+  //   {
+  //     variables: { launchIds: shoppingCart.data.shoppingCart },
+  //     refetchQueries: shoppingCart.data.shoppingCart.map(id => ({
+  //       query: GET_SHOPPING_CART,
+  //       variables: { id },
+  //     })),
+  //     update(cache) {
+  //       cache.writeData({ data: { shoppingCart: [] } });
+  //     }
+  //   }
+  // );
 
   return (
-    <StyledAddToCartButton 
-      onClick={updateCart}
-      isHeader={props.isHeader}>
+    <StyledAddToCartButton isHeader={props.isHeader}>
       {props.isHeader ? (
         <ShoppingOutlined />
       ) : (
