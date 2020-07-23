@@ -17,7 +17,7 @@ interface CardProps {
   url: string
   name: string
   price: number
-  // client: ApolloClient<any>
+  productId: number
 }
 
 const Card: React.FC<CardProps> = (props) => {
@@ -27,12 +27,12 @@ const Card: React.FC<CardProps> = (props) => {
   //console.log(props.client)
 
   return (
-    <StyledCard>
+    <StyledCard onClick={props.onClick}>
       <StyledCardImage src={props.imageURL} onClick={onViewProduct} />
       <StyledCardBody>
         <StyledTitle>{props.name}</StyledTitle>
         <StyledPrice>{props.price.toLocaleString()} VND</StyledPrice>
-        <ActionBtnGroup />
+        <ActionBtnGroup productId= {props.productId}/>
       </StyledCardBody>
     </StyledCard>
   )

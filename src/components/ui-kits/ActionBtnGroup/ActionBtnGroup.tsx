@@ -3,11 +3,14 @@ import { StyledActionBtnGroup } from './ActionBtnGroup.styled'
 import { FavoriteButton } from '../FavoriteButton'
 import { AddToCartButton } from '../AddToCartButton'
 
-const ActionBtnGroup: React.FC = () => {
+interface IActionBtnGroup {
+  productId: number
+}
+const ActionBtnGroup: React.FC<IActionBtnGroup> = (props) => {
   return (
     <StyledActionBtnGroup>
       <FavoriteButton />
-      <AddToCartButton />
+      <AddToCartButton productId={props.productId}/>
     </StyledActionBtnGroup>
   )
 }

@@ -1,46 +1,74 @@
 import React from 'react'
-import { StyledAddToCartButton, StyledAddToCartItem } from './AddToCartButton.styled'
+import { shoppingCartVar } from '../../../utils/cache'
+import { StyledAddToCartButton, StyledAddToCartItem, StyledCartLabel } from './AddToCartButton.styled'
 import { ShoppingOutlined } from '@ant-design/icons'
-import { GET_SHOPPING_CART_DATA } from '../../../graphql/product/product.query'
-import { useQuery, useApolloClient } from '@apollo/react-hooks'
+import { makeVar } from '@apollo/client';
+import { useApolloClient, useMutation, useQuery  } from '@apollo/react-hooks';
+import { GET_SHOPPING_CART, SET_SHOPPING_CART } from '../../../graphql/product/product.query'
 
-interface AddToCartProps {
+interface IAddToCartProps {
   isHeader?: boolean
-  productId?: number
   onClick?(e?: React.MouseEvent<HTMLElement>)
+  productId?: number
 }
-const AddToCartButton: React.FC<AddToCartProps> = (props) => {
-  // console.log(client)
-  // const addToCart = (id) => {
-  //   const { shoppingCart } = client.readQuery({ query: GET_SHOPPING_CART_DATA })
-  //   console.log(shoppingCart)
-  //   let quantity = 1
 
-  //   const selectedProduct = {
-  //     id: id,
-  //     quantity: 1,
-  //     __typename: 'ShoppingCart',
-  //   }
-  //   let updatedShoppingCart = [selectedProduct]
-  //   if (shoppingCart.length > 0) {
-  //     updatedShoppingCart = [...shoppingCart, selectedProduct]
-  //   }
+const AddToCartButton: React.FC<IAddToCartProps> = (props) => {
+  const client = useApolloClient()
+  client.writeData({
+    data: {
+      shoppingCart: []
+    }
+  })
+  const shoppingCart = useQuery(GET_SHOPPING_CART);
+  // const addToCart = () => {
+  //   const currentCart = JSON.parse(sessionStorage.getItem("shoppingCart")) || []
+  //   const selectedProduct =  {id: props.productId, quantity: 1}
+  //   const updatedCart = [...currentCart, selectedProduct]
+  //   sessionStorage.setItem("shoppingCart", JSON.stringify(updatedCart));
+  //   setShoppingCart(updatedCart.length)
+  //   console.log(sessionStorage.getItem("shoppingCart"))
+  // }
+
+  // const updateCart = () => {
+  //   console.log(data)
   //   client.writeData({
   //     data: {
-  //       shoppingCart: updatedShoppingCart,
-  //     },
+  //       shoppingCart: [...data.shoppingCart, { id: `${props.productId}`, quantity: "1" }]
+  //     }
   //   })
-  //   console.log(shoppingCart)
-  //   console.log(id)
+  //   console.log(client)
   // }
-  // onClick={() => addToCart(props.productId)} isHeader={props.isHeader}
+
+  const [
+    updateCart, { data }
+  ] = useMutation(
+    SET_SHOPPING_CART,
+    {
+      variables: { launchIds: shoppingCart.data.shoppingCart },
+      refetchQueries: shoppingCart.data.shoppingCart.map(id => ({
+        query: GET_SHOPPING_CART,
+        variables: { id },
+      })),
+      update(cache) {
+        cache.writeData({ data: { shoppingCart: [] } });
+      }
+    }
+  );
+
   return (
-    <StyledAddToCartButton>
+    <StyledAddToCartButton 
+      onClick={updateCart}
+      isHeader={props.isHeader}>
       {props.isHeader ? (
         <ShoppingOutlined />
       ) : (
         <StyledAddToCartItem>ADD TO CART</StyledAddToCartItem>
       )}
+      {/* {props.isHeader && shoppingCart().length > 0 ? 
+       <StyledCartLabel>
+        {shoppingCart().length}
+       </StyledCartLabel>: 
+      null} */}
     </StyledAddToCartButton>
   )
 }

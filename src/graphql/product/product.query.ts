@@ -26,13 +26,19 @@ export const GET_PRODUCT_DETAILS = gql`
       images
       price
       sku
+      shoppingCart @client
     }
   }
 `
+export const GET_SHOPPING_CART = gql`
+  query GetShoppingCart {
+    shoppingCart @client
+  }
+`
 
-export const GET_SHOPPING_CART_DATA = gql`
-  query GetShoppingCartData {
-    shoppingCart @client {
+export const SET_SHOPPING_CART = gql`
+  mutation UpdateCart($id: String!, $quantity: String!) {
+    updateCart(id: $id, quantity: $quantity) {
       id
       quantity
     }

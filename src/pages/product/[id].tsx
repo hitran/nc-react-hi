@@ -4,7 +4,7 @@ import { Layout } from '../../components/Layout'
 import { ProductDetail } from '../../components/ProductDetail'
 import { ProductCarousel } from '../../components/ProductCarousel'
 import withApollo from '../../utils/withApollo'
-import { GET_PRODUCT_DETAILS } from '../../graphql/product/product.query'
+import { GET_PRODUCT_DETAILS, GET_SHOPPING_CART } from '../../graphql/product/product.query'
 import { useQuery } from '@apollo/react-hooks'
 import { useRouter } from 'next/router'
 
@@ -34,6 +34,8 @@ const Product: React.FC = () => {
   if (!product) {
     return <p>Not found</p>
   }
+  const shoppingCart = useQuery(GET_SHOPPING_CART)
+  console.log(shoppingCart)
 
   return (
     <Layout>

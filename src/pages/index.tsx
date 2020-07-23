@@ -5,7 +5,7 @@ import withApollo from '../utils/withApollo'
 import Layout from '../components/Layout/Layout'
 import styled from 'styled-components'
 import { Card } from '../components/ui-kits/Card'
-import { GET_PRODUCTS, GET_SHOPPING_CART_DATA } from '../graphql/product/product.query'
+import { GET_PRODUCTS, GET_SHOPPING_CART } from '../graphql/product/product.query'
 
 export const HomeContainer = styled.div``
 
@@ -41,9 +41,12 @@ const Home: React.FC = () => {
     return <p>Not found</p>
   }
 
+  const updateCurrentProduct = (id) => {
+    sessionStorage.setItem("currentProductId", id)
+  }
 
   return (
-    <ApolloProvider client={client}>
+    <>
       <Head>
         <title>Lezada | Biggest Online Ecommerce Platform</title>
         <link rel="icon" href="/favicon.ico" />
@@ -57,11 +60,13 @@ const Home: React.FC = () => {
               url={`/product/${product.id}`}
               name={product.name}
               price={product.price}
+              onClick={() => updateCurrentProduct(product.id)}
+              productId={product.id}
             />
           ))}
         </StyledHomeBody>
       </Layout>
-    </ApolloProvider>
+    </>
   )
 }
 

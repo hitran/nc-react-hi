@@ -7,7 +7,23 @@ export const StyledAddToCartButton = styled.div`
   height: 100%;
   background-color: ${(props) => (props.isHeader ? 'transparent' : 'black')};
   justify-content: center;
+  position: relative;
 `
 export const StyledAddToCartItem = styled.div`
   color: white;
+`
+
+export const StyledCartLabel = styled.span`
+  background-color: black;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: -9px;
+  right: -8px;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
