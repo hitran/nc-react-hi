@@ -15,11 +15,11 @@ export interface IProductDetail {
   price: number
 }
 
-export interface PropductDetailProps {
+interface PropductDetailProps {
   product: IProductDetail
 }
 
-const Product: React.FC<PropductDetailProps> = (props) => {
+const Product: React.FC<PropductDetailProps> = () => {
   const router = useRouter()
   const { id } = router.query
   const { loading, error, data } = useQuery(GET_PRODUCT_DETAILS, {

@@ -22,7 +22,7 @@ export const StyledHomeBody = styled.div`
   }
 `
 
-const Home: React.FC = () => {
+const Home = () => {
   // const client = useApolloClient()
   const { loading, error, data } = useQuery(GET_PRODUCTS, {
     variables: {
