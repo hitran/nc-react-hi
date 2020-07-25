@@ -3,10 +3,6 @@ import styled from 'styled-components'
 export const StyledQuantityButton = styled.div`
   display: grid;
   grid-template-areas: 'subtractBtn quantityText addBtn';
-  @media screen and (min-width: 678px) {
-    width: 300px;
-    height: 60px;
-  }
 `
 export const StyledBtn = styled.div`
   padding: 10px 0;

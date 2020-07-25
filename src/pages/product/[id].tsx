@@ -1,5 +1,5 @@
-import React from 'react'
-import StyledProduct from './Product.styled'
+import React, { useState } from 'react'
+import { StyledProduct, StyledProductContent, StyledReadMoreBtn } from './Product.styled'
 import { Layout } from '../../components/Layout'
 import { ProductDetail } from '../../components/ProductDetail'
 import { ProductCarousel } from '../../components/ProductCarousel'
@@ -19,7 +19,8 @@ interface PropductDetailProps {
   product: IProductDetail
 }
 
-const Product: React.FC<PropductDetailProps> = () => {
+const Product = () => {
+  const [isReadMore, setIsReadMore] = useState(false)
   const router = useRouter()
   const { id } = router.query
   const { loading, error, data } = useQuery(GET_PRODUCT_DETAILS, {
@@ -39,6 +40,11 @@ const Product: React.FC<PropductDetailProps> = () => {
   // const shoppingCart = useQuery(GET_SHOPPING_CART)
   // console.log(shoppingCart)
 
+  const toggleIsReadMore = () => {
+    console.log(!isReadMore)
+    const newIsReadMoreState = !isReadMore
+    setIsReadMore(newIsReadMoreState)
+  }
   return (
     <Layout>
       <StyledProduct>
@@ -49,7 +55,13 @@ const Product: React.FC<PropductDetailProps> = () => {
           sku={product?.sku}
         />
       </StyledProduct>
-      <div dangerouslySetInnerHTML={{ __html: product?.description }} />
+      <StyledProductContent
+        dangerouslySetInnerHTML={{ __html: product?.description }}
+        isReadMore={isReadMore}
+      />
+      <StyledReadMoreBtn onClick={toggleIsReadMore}>
+        {isReadMore ? 'Show Less' : 'Show More'}
+      </StyledReadMoreBtn>
     </Layout>
   )
 }

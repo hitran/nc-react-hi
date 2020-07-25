@@ -9,7 +9,7 @@ import {
   StyledPrice,
 } from './Card.styled'
 
-import { ActionBtnGroup } from '../ActionBtnGroup'
+import { ActionBtnGroup } from '../../ActionBtnGroup'
 
 interface CardProps {
   onClick?(e: any): void

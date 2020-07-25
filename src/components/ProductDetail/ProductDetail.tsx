@@ -1,6 +1,11 @@
 import React from 'react'
-import { StyledProductDetail } from './ProductDetail.styled'
-import { QuantityButton } from '../ui-kits/QuantityButton'
+import {
+  StyledProductDetail,
+  StyledProductName,
+  StyledPrice,
+  StyledBtnGroup,
+} from './ProductDetail.styled'
+import { QuantityButton } from '../QuantityButton'
 import { ActionBtnGroup } from '../ui-kits/ActionBtnGroup'
 
 interface IProductDetailProps {
@@ -11,10 +16,15 @@ interface IProductDetailProps {
 const ProductDetail: React.FC<IProductDetailProps> = (props) => {
   return (
     <StyledProductDetail>
-      <h2>{props.productName}</h2>
-      <h5>{props.productPrice.toLocaleString()} VND</h5>
-      <QuantityButton />
-      <ActionBtnGroup />
+      <StyledProductName>{props.productName}</StyledProductName>
+      <p>SKU: {props.sku}</p>
+      <hr />
+      <StyledPrice>{props.productPrice.toLocaleString()} đ</StyledPrice>
+      <p>Quantity: </p>
+      <StyledBtnGroup>
+        <QuantityButton />
+        <ActionBtnGroup />
+      </StyledBtnGroup>
     </StyledProductDetail>
   )
 }

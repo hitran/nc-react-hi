@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { DropdownMenu } from '../ui-kits/DropdownMenu'
 import { FavoriteButton } from '../ui-kits/FavoriteButton'
 import { AddToCartButton } from '../ui-kits/AddToCartButton'
-import { SearchButton } from '../ui-kits/SearchButton'
+import SearchButton from '../SearchButton/SearchButton'
 import { LoginButton } from '../ui-kits/LoginButton'
 import { MenuButton } from '../ui-kits/MenuButton'
 import {

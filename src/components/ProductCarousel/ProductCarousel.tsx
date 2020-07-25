@@ -8,16 +8,9 @@ interface IProductCarouselProps {
 }
 
 const ProductCarousel: React.FC<IProductCarouselProps> = (props) => {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  }
   return (
     <StyledProductCarousel>
-      <Carousel {...settings}>
+      <Carousel>
         {props.images?.map((item, i) => (
           <Carousel.Item key={i}>
             <StyledCarouselImage key={i} src={`${baseImgUrl}${item}`} alt="" />
