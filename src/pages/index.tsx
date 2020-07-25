@@ -1,11 +1,11 @@
 import React from 'react'
 import Head from 'next/head'
-import { useQuery, useApolloClient, ApolloProvider } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/react-hooks'
 import withApollo from '../utils/withApollo'
 import Layout from '../components/Layout/Layout'
 import styled from 'styled-components'
 import { Card } from '../components/ui-kits/Card'
-import { GET_PRODUCTS, GET_SHOPPING_CART } from '../graphql/product/product.query'
+import { GET_PRODUCTS } from '../graphql/product/product.query'
 
 export const HomeContainer = styled.div``
 

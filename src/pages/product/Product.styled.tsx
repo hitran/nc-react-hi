@@ -5,7 +5,6 @@ export const StyledContent = styled.div`
     margin: 0 10%;
   }
 `
-
 export const StyledProduct = styled(StyledContent)`
   display: grid;
   grid-gap: 50px;

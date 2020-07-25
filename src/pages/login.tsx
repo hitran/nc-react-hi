@@ -18,11 +18,12 @@ const StyledInput = styled.input`
   margin-bottom: 10px;
 `
 const StyledLoginBtn = styled.button`
-  border: 1px solid black;
+  border: ${(props) => (props.disabled ? '1px solid gray' : '1px solid black')};
   border-radius: 10px;
   width: 150px;
   padding: 10px;
   margin-top: 20px;
+  cursor: ${(props) => (props.disabled ? 'no-drop' : 'pointer')};
 `
 const StyledErrorMsg = styled.p`
   color: orangered;
@@ -31,17 +32,38 @@ const StyledErrorMsg = styled.p`
 const USER_NAME = 'Username'
 const EMAIL = 'Email'
 const PASSWORD = 'Password'
+
 const Login = () => {
-  const [userName, setUserName] = useState('')
+  const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [isInputValid, setIsInputValid] = useState(true)
+  const [isUsernameValid, setIsUsernameValid] = useState(true)
+  const [isEmailValid, setIsEmailValid] = useState(true)
+  const [isPasswordValid, setIsPasswordValid] = useState(true)
 
-  const isValidInput = (inputVal) => {
-    if (!inputVal.length) {
-      setIsInputValid(false)
-    } else {
-      setIsInputValid(true)
+  const isValidInput = (inputVal, inputType) => {
+    if (inputType === USER_NAME) {
+      if (!inputVal.length) {
+        setIsUsernameValid(false)
+      } else {
+        setIsUsernameValid(true)
+      }
+    }
+
+    if (inputType === EMAIL) {
+      if (!inputVal.length) {
+        setIsEmailValid(false)
+      } else {
+        setIsEmailValid(true)
+      }
+    }
+
+    if (inputType === PASSWORD) {
+      if (!inputVal.length) {
+        setIsPasswordValid(false)
+      } else {
+        setIsPasswordValid(true)
+      }
     }
   }
 
@@ -51,10 +73,10 @@ const Login = () => {
       return
     }
 
-    isValidInput(inputVal)
+    isValidInput(inputVal, inputType)
 
     if (inputType === USER_NAME) {
-      setUserName(inputVal)
+      setUsername(inputVal)
     } else if (inputType === EMAIL) {
       setEmail(inputVal)
     } else if (inputType === PASSWORD) {
@@ -68,25 +90,29 @@ const Login = () => {
         <h3>LOGIN</h3>
         <form>
           <p>Username *</p>
-          {!isInputValid ? <StyledErrorMsg>This field is required</StyledErrorMsg> : null}
+          {!isUsernameValid ? <StyledErrorMsg>* This field is required</StyledErrorMsg> : null}
           <StyledInput
             type="text"
-            value={userName}
+            value={username}
             onChange={(e) => handleInputChange(e, USER_NAME)}
           />
           <p>Email *</p>
-          {!isInputValid ? <StyledErrorMsg>This field is required</StyledErrorMsg> : null}
+          {!isEmailValid ? <StyledErrorMsg>* This field is required</StyledErrorMsg> : null}
           <StyledInput type="email" value={email} onChange={(e) => handleInputChange(e, EMAIL)} />
 
           <p>Password *</p>
-          {!isInputValid ? <StyledErrorMsg>This field is required</StyledErrorMsg> : null}
+          {!isPasswordValid ? <StyledErrorMsg>* This field is required</StyledErrorMsg> : null}
           <StyledInput
             type="password"
             value={password}
             onChange={(e) => handleInputChange(e, PASSWORD)}
           />
         </form>
-        <StyledLoginBtn>Login</StyledLoginBtn>
+        <StyledLoginBtn
+          disabled={!(username.length > 0 && email.length > 0 && password.length > 0)}
+        >
+          Login
+        </StyledLoginBtn>
       </StyledLogin>
     </Layout>
   )

@@ -90,7 +90,7 @@ const Header: React.FC = () => {
           </Link>
         </StyledMenuItem>
         <StyledMenuItem>
-          <Link href="/">
+          <Link href="/login">
             <StyledLink>
               <LoginButton />
             </StyledLink>

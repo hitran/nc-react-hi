@@ -6,7 +6,7 @@ import {
   StyledBtnGroup,
 } from './ProductDetail.styled'
 import { QuantityButton } from '../QuantityButton'
-import { ActionBtnGroup } from '../ui-kits/ActionBtnGroup'
+import { ActionBtnGroup } from '../ActionBtnGroup'
 
 interface IProductDetailProps {
   productName: string
