@@ -1,8 +1,8 @@
 import { gql } from 'apollo-boost'
 
 export const SIGN_IN = gql`
-  query SignIn($input: SignInInput!) {
-    SignIn(input: $input) {
+  mutation SignIn($input: SignInInput!) {
+    signIn(input: $input) {
       accessToken
     }
   }

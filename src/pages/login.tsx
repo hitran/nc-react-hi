@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
 import { Layout } from '../components/Layout'
 import styled from 'styled-components'
+import { useMutation } from '@apollo/react-hooks'
+import { SIGN_IN } from '../graphql/product/login.query'
+import withApollo from '../utils/withApollo'
+import Router from 'next/router'
 
+/* TODO: Move Styles to a separate file */
 const StyledLogin = styled.div`
   margin: 0 auto;
   display: flex;
@@ -22,12 +27,21 @@ const StyledLoginBtn = styled.button`
   border-radius: 10px;
   width: 150px;
   padding: 10px;
-  margin-top: 20px;
+  margin: 20px 0;
   cursor: ${(props) => (props.disabled ? 'no-drop' : 'pointer')};
 `
 const StyledErrorMsg = styled.p`
   color: orangered;
   font-size: 12px;
+`
+
+const StyledSignUp = styled.p`
+  text-align: center;
+  text-decoration: underline;
+  color: blue;
+  &:hover {
+    cursor: pointer;
+  }
 `
 const USER_NAME = 'Username'
 const EMAIL = 'Email'
@@ -40,6 +54,17 @@ const Login = () => {
   const [isUsernameValid, setIsUsernameValid] = useState(true)
   const [isEmailValid, setIsEmailValid] = useState(true)
   const [isPasswordValid, setIsPasswordValid] = useState(true)
+  const [isLoginError, setIsLoginError] = useState(false)
+  const [isSignUp, setIsSignUp] = useState(false)
+
+  const [signIn] = useMutation(SIGN_IN, {
+    variables: {
+      input: {
+        email: email,
+        password: `${password}`,
+      },
+    },
+  })
 
   const isValidInput = (inputVal, inputType) => {
     if (inputType === USER_NAME) {
@@ -84,18 +109,48 @@ const Login = () => {
     }
   }
 
+  const onSignIn = async () => {
+    try {
+      const data = await signIn()
+      Router.push('/')
+    } catch (err) {
+      console.log(err)
+      setIsLoginError(true)
+    }
+  }
+
+  const updateIsSignUp = () => {
+    if (!isSignUp) {
+      setIsSignUp(true)
+      setEmail('')
+      setUsername('')
+      setPassword('')
+    }
+  }
+
   return (
     <Layout>
       <StyledLogin>
-        <h3>LOGIN</h3>
+        <h3>{!isSignUp ? 'LOGIN' : 'REGISTER'}</h3>
+        {isLoginError && !isSignUp ? (
+          <StyledErrorMsg>
+            Incorrect Credential!
+            <StyledSignUp onClick={updateIsSignUp}>Sign Up Instead ?</StyledSignUp>
+          </StyledErrorMsg>
+        ) : null}
         <form>
-          <p>Username *</p>
-          {!isUsernameValid ? <StyledErrorMsg>* This field is required</StyledErrorMsg> : null}
-          <StyledInput
-            type="text"
-            value={username}
-            onChange={(e) => handleInputChange(e, USER_NAME)}
-          />
+          {isSignUp ? (
+            <>
+              <p>Username *</p>
+              {!isUsernameValid ? <StyledErrorMsg>* This field is required</StyledErrorMsg> : null}
+              <StyledInput
+                type="text"
+                value={username}
+                onChange={(e) => handleInputChange(e, USER_NAME)}
+              />
+            </>
+          ) : null}
+
           <p>Email *</p>
           {!isEmailValid ? <StyledErrorMsg>* This field is required</StyledErrorMsg> : null}
           <StyledInput type="email" value={email} onChange={(e) => handleInputChange(e, EMAIL)} />
@@ -109,13 +164,18 @@ const Login = () => {
           />
         </form>
         <StyledLoginBtn
-          disabled={!(username.length > 0 && email.length > 0 && password.length > 0)}
+          disabled={
+            (!(username.length > 0 && email.length > 0 && password.length > 0) && isSignUp) ||
+            (!(email.length > 0 && password.length > 0) && !isSignUp)
+          }
+          onClick={onSignIn}
         >
-          Login
+          {!isSignUp ? 'Login' : 'Register'}
         </StyledLoginBtn>
+        {!isSignUp ? <StyledSignUp onClick={updateIsSignUp}>Or sign up here</StyledSignUp> : null}
       </StyledLogin>
     </Layout>
   )
 }
 
-export default Login
+export default withApollo({ ssr: true })(Login)
