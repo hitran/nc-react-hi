@@ -118,7 +118,6 @@ const Login = () => {
       const data = await signIn()
       Router.push('/')
     } catch (err) {
-      console.log(err)
       setIsLoginError(true)
     }
   }

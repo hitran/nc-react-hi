@@ -1,13 +1,12 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import Head from 'next/head'
-import { useQuery, ApolloProvider, useApolloClient } from '@apollo/react-hooks'
-
+import { useQuery } from '@apollo/react-hooks'
 import Layout from '../components/Layout/Layout'
 import styled from 'styled-components'
 import { Card } from '../components/ui-kits/Card'
 import { GET_PRODUCTS } from '../graphql/product/product.query'
-import Context from '../utils/context'
 import withApollo from '../utils/withApollo'
+import Context from '../utils/context'
 
 export const HomeContainer = styled.div``
 
@@ -25,7 +24,15 @@ export const StyledHomeBody = styled.div`
 `
 
 const Home = (props) => {
-  // const client = useApolloClient()
+  const context = useContext(Context)
+  useEffect(() => {
+    if (sessionStorage && sessionStorage.data) {
+      const data = JSON.parse(sessionStorage.getItem('data'))
+      // console.log('data', data)
+      context.setCartFromStorage([...data.shoppingCart])
+    }
+  }, [])
+
   const { loading, error, data } = useQuery(GET_PRODUCTS, {
     variables: {
       input: {
@@ -38,7 +45,6 @@ const Home = (props) => {
   if (loading) return null
   if (error) return `Error! ${error}`
   const products = data?.getAllProduct?.data
-  console.log(data)
 
   if (!products || !products.length) {
     return <p>Not found</p>

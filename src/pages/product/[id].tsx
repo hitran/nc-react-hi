@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import styled from 'styled-components'
 import { Layout } from '../../components/Layout'
 import { ProductDetail } from '../../components/ProductDetail'
@@ -8,6 +8,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { useRouter } from 'next/router'
 import withApollo from '../../utils/withApollo'
 import Head from 'next/head'
+import Context from '../../utils/context'
 
 /* TODO: Move Styles to a separate file */
 export const StyledContent = styled.div`
@@ -55,6 +56,14 @@ interface PropductDetailProps {
 
 const Product = () => {
   const [isReadMore, setIsReadMore] = useState(false)
+  const context = useContext(Context)
+  useEffect(() => {
+    if (sessionStorage && sessionStorage.data) {
+      const data = JSON.parse(sessionStorage.getItem('data'))
+      // console.log('data', data)
+      context.setCartFromStorage([...data.shoppingCart])
+    }
+  }, [])
   const router = useRouter()
   const { id } = router.query
   const { loading, error, data } = useQuery(GET_PRODUCT_DETAILS, {
@@ -73,7 +82,6 @@ const Product = () => {
   }
 
   const toggleIsReadMore = () => {
-    console.log(!isReadMore)
     const newIsReadMoreState = !isReadMore
     setIsReadMore(newIsReadMoreState)
   }

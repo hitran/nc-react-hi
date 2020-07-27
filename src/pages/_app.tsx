@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Context from '../utils/context'
 import { baseUrl } from '../common/constants'
 
 function MyApp({ Component, pageProps }) {
   const [shoppingCart, setShoppingCart] = useState([])
 
-  useEffect(() => {
-    console.log('initialize app')
-  }, [])
-
-  const updateShoppingCart = ({ id, quantity }) => {
+  const updateShoppingCart = ({ id, quantity }, isFromStorage = false) => {
     const updatedShoppingCart = [...shoppingCart, { id, quantity }]
     setShoppingCart(updatedShoppingCart)
   }
 
+  const setCartFromStorage = (cartFromSession) => {
+    setShoppingCart(cartFromSession)
+  }
+
   return (
-    <Context.Provider value={{ shoppingCart, updateShoppingCart }}>
+    <Context.Provider value={{ shoppingCart, updateShoppingCart, setCartFromStorage }}>
       <Component {...pageProps} />
     </Context.Provider>
   )

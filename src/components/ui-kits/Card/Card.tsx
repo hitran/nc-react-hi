@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Link from 'next/link'
 import {
   StyledCard,
@@ -9,7 +9,8 @@ import {
 } from './Card.styled'
 
 import { ActionBtnGroup } from '../../ActionBtnGroup'
-import { Anchor } from '../Anchor'
+import Router from 'next/router'
+import Context from '../../../utils/context'
 
 interface CardProps {
   onClick?(e: any): void
@@ -20,18 +21,15 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = (props) => {
-  // const onViewProduct = (): void => {
-  //   Router.push(props.url)
-  // }
-  //console.log(props.client)
+  const context = useContext(Context)
+  const onViewProduct = (): void => {
+    sessionStorage && sessionStorage.setItem('data', JSON.stringify(context))
+    Router.push(`/product/${props.productId}`)
+  }
 
   return (
     <StyledCard>
-      <Link href={`/product/${props.productId}`} replace>
-        <a>
-          <StyledCardImage src={props.imageURL} />
-        </a>
-      </Link>
+      <StyledCardImage src={props.imageURL} onClick={onViewProduct} />
 
       <StyledCardBody>
         <StyledTitle>{props.name}</StyledTitle>

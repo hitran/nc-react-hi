@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useContext } from 'react'
 import {
   StyledAddToCartButton,
   StyledAddToCartItem,
@@ -13,27 +13,21 @@ interface IAddToCartProps {
 }
 
 const AddToCartButton: React.FC<IAddToCartProps> = (props) => {
+  const context = useContext(Context)
   return (
-    <Context.Consumer>
-      {({ shoppingCart, updateShoppingCart }) => {
-        console.log('header context', shoppingCart, updateShoppingCart)
-        return (
-          <StyledAddToCartButton
-            isHeader={props.isHeader}
-            onClick={() => updateShoppingCart({ id: props.productId, quantity: 1 })}
-          >
-            {props.isHeader ? (
-              <ShoppingOutlined />
-            ) : (
-              <StyledAddToCartItem>ADD TO CART</StyledAddToCartItem>
-            )}
-            {props.isHeader && shoppingCart.length > 0 ? (
-              <StyledCartLabel>{shoppingCart.length}</StyledCartLabel>
-            ) : null}
-          </StyledAddToCartButton>
-        )
-      }}
-    </Context.Consumer>
+    <StyledAddToCartButton
+      isHeader={props.isHeader}
+      onClick={() => context.updateShoppingCart({ id: props.productId, quantity: 1 })}
+    >
+      {props.isHeader ? (
+        <ShoppingOutlined />
+      ) : (
+        <StyledAddToCartItem>ADD TO CART</StyledAddToCartItem>
+      )}
+      {props.isHeader && context.shoppingCart.length > 0 ? (
+        <StyledCartLabel>{context.shoppingCart.length}</StyledCartLabel>
+      ) : null}
+    </StyledAddToCartButton>
   )
 }
 
