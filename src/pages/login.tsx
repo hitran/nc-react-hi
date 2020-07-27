@@ -43,6 +43,10 @@ const StyledSignUp = styled.p`
     cursor: pointer;
   }
 `
+
+const StyledLoginMsg = styled(StyledErrorMsg)`
+  font-size: 16px;
+`
 const USER_NAME = 'Username'
 const EMAIL = 'Email'
 const PASSWORD = 'Password'
@@ -133,10 +137,10 @@ const Login = () => {
       <StyledLogin>
         <h3>{!isSignUp ? 'LOGIN' : 'REGISTER'}</h3>
         {isLoginError && !isSignUp ? (
-          <StyledErrorMsg>
+          <StyledLoginMsg>
             Incorrect Credential!
             <StyledSignUp onClick={updateIsSignUp}>Sign Up Instead ?</StyledSignUp>
-          </StyledErrorMsg>
+          </StyledLoginMsg>
         ) : null}
         <form>
           {isSignUp ? (
