@@ -1,11 +1,13 @@
 import React from 'react'
 import Head from 'next/head'
-import { useQuery } from '@apollo/react-hooks'
-import withApollo from '../utils/withApollo'
+import { useQuery, ApolloProvider, useApolloClient } from '@apollo/react-hooks'
+
 import Layout from '../components/Layout/Layout'
 import styled from 'styled-components'
 import { Card } from '../components/ui-kits/Card'
 import { GET_PRODUCTS } from '../graphql/product/product.query'
+import Context from '../utils/context'
+import withApollo from '../utils/withApollo'
 
 export const HomeContainer = styled.div``
 
@@ -22,7 +24,7 @@ export const StyledHomeBody = styled.div`
   }
 `
 
-const Home = () => {
+const Home = (props) => {
   // const client = useApolloClient()
   const { loading, error, data } = useQuery(GET_PRODUCTS, {
     variables: {
@@ -36,13 +38,14 @@ const Home = () => {
   if (loading) return null
   if (error) return `Error! ${error}`
   const products = data?.getAllProduct?.data
+  console.log(data)
 
   if (!products || !products.length) {
     return <p>Not found</p>
   }
 
   const updateCurrentProduct = (id) => {
-    sessionStorage.setItem("currentProductId", id)
+    sessionStorage.setItem('currentProductId', id)
   }
 
   return (
@@ -57,10 +60,8 @@ const Home = () => {
             <Card
               key={product.id}
               imageURL={product.imgUrl}
-              url={`/product/${product.id}`}
               name={product.name}
               price={product.price}
-              // onClick={() => updateCurrentProduct(product.id)}
               productId={product.id}
             />
           ))}

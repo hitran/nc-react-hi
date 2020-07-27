@@ -92,8 +92,3 @@ export const StyledMenuItem = styled.li`
     margin: 20px 10px 0 10px;
   }
 `
-
-export const StyledLink = styled.a`
-  text-decoration: none;
-  font-size: 20px;
-`

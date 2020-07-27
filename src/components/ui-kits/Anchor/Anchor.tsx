@@ -3,15 +3,18 @@ import Router from 'next/router'
 import { StyledAnchor } from './Anchor.styled'
 
 interface TextProps {
-  children: string
+  children: React.ReactChild
   to?: string
+  as?: string
 }
 
 const Anchor: React.FC<TextProps> = (props) => {
-  const onLinkClick = (destinationURL: string): void => {
-    Router.push(destinationURL)
+  const onLinkClick = () => {
+    const href = props.to
+    const as = props.as || href
+    Router.push(href, as, { shallow: true })
   }
-  return <StyledAnchor onClick={() => onLinkClick(props.to)}>{props.children}</StyledAnchor>
+  return <StyledAnchor onClick={onLinkClick}>{props.children}</StyledAnchor>
 }
 
 export default Anchor
