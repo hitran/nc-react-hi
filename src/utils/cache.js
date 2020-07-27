@@ -1,8 +1,7 @@
-
 import { InMemoryCache } from 'apollo-boost'
-import { makeVar } from '@apollo/client';
+import { makeVar } from '@apollo/client'
 
-export const shoppingCartVar = makeVar([]);
+export const shoppingCartVar = makeVar([])
 
 export const cache = new InMemoryCache({
   typePolicies: {
@@ -10,10 +9,10 @@ export const cache = new InMemoryCache({
       fields: {
         shoppingCart: {
           read() {
-            return shoppingCartVar();
-          }
-        }
-      }
-    }
-  }
-});
+            return shoppingCartVar()
+          },
+        },
+      },
+    },
+  },
+})

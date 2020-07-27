@@ -3,10 +3,11 @@ import styled from 'styled-components'
 import { Layout } from '../../components/Layout'
 import { ProductDetail } from '../../components/ProductDetail'
 import { ProductCarousel } from '../../components/ProductCarousel'
-import withApollo from '../../utils/withApollo'
 import { GET_PRODUCT_DETAILS } from '../../graphql/product/product.query'
 import { useQuery } from '@apollo/react-hooks'
 import { useRouter } from 'next/router'
+import withApollo from '../../utils/withApollo'
+import Head from 'next/head'
 
 /* TODO: Move Styles to a separate file */
 export const StyledContent = styled.div`
@@ -70,8 +71,6 @@ const Product = () => {
   if (!product) {
     return <p>Not found</p>
   }
-  // const shoppingCart = useQuery(GET_SHOPPING_CART)
-  // console.log(shoppingCart)
 
   const toggleIsReadMore = () => {
     console.log(!isReadMore)
@@ -79,24 +78,30 @@ const Product = () => {
     setIsReadMore(newIsReadMoreState)
   }
   return (
-    <Layout>
-      <StyledProduct>
-        <ProductCarousel images={product?.images} />
-        <ProductDetail
-          productName={product?.name}
-          productPrice={product?.price}
-          sku={product?.sku}
+    <>
+      <Head>
+        <title>Lezada | {product?.name}</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Layout>
+        <StyledProduct>
+          <ProductCarousel images={product?.images} />
+          <ProductDetail
+            productName={product?.name}
+            productPrice={product?.price}
+            sku={product?.sku}
+          />
+        </StyledProduct>
+        <StyledProductContent
+          dangerouslySetInnerHTML={{ __html: product?.description }}
+          isReadMore={isReadMore}
         />
-      </StyledProduct>
-      <StyledProductContent
-        dangerouslySetInnerHTML={{ __html: product?.description }}
-        isReadMore={isReadMore}
-      />
-      <StyledReadMoreBtn onClick={toggleIsReadMore}>
-        {isReadMore ? 'Show Less' : 'Show More'}
-      </StyledReadMoreBtn>
-    </Layout>
+        <StyledReadMoreBtn onClick={toggleIsReadMore}>
+          {isReadMore ? 'Show Less' : 'Show More'}
+        </StyledReadMoreBtn>
+      </Layout>
+    </>
   )
 }
 
-export default withApollo({ ssr: true })(Product)
+export default withApollo({ ssr: false })(Product)
