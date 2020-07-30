@@ -13,7 +13,6 @@ export const withoutButtonGroup: React.FC = () => (
   <Card
     onClick={action('Hello Button')}
     imageURL="https://media3.scdn.vn/img3/2019/4_19/NcrEm5_simg_b5529c_250x250_maxb.jpg"
-    url=""
     name=""
     price={0}
     productId={0}

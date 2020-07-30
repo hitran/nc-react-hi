@@ -5,9 +5,10 @@ import { baseUrl } from '../common/constants'
 function MyApp({ Component, pageProps }) {
   const [shoppingCart, setShoppingCart] = useState([])
 
-  const updateShoppingCart = ({ id, quantity }, isFromStorage = false) => {
+  const updateShoppingCart = ({ id, quantity }) => {
     const updatedShoppingCart = [...shoppingCart, { id, quantity }]
     setShoppingCart(updatedShoppingCart)
+    return { id, quantity }
   }
 
   const setCartFromStorage = (cartFromSession) => {
