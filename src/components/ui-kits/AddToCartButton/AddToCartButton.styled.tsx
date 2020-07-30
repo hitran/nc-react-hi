@@ -21,7 +21,7 @@ export const StyledCartLabel = styled.span`
   height: 20px;
   position: absolute;
   top: -9px;
-  right: -8px;
+  right: -6px;
   font-size: 15px;
   display: flex;
   align-items: center;
