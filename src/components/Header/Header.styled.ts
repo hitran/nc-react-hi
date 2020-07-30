@@ -19,7 +19,7 @@ export const StyledMenuLeft = styled.ul`
 `
 export const StyledMenuRight = styled(StyledGrid)`
   grid-area: menuRight;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 `
 export const StyledMenuCenter = styled.div`
   grid-area: menuCenter;
@@ -81,7 +81,6 @@ export const StyledMenuItem = styled.li`
   width: ${(props) => (props.type === 'logo' ? '60%' : 'auto')};
   width: 90%;
   text-align: center;
-  padding-bottom: 10px;
   margin: 10px;
   list-style-type: none;
 

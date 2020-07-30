@@ -3,12 +3,12 @@ import Head from 'next/head'
 import { Layout } from '../components/Layout'
 import styled from 'styled-components'
 import { useMutation } from '@apollo/react-hooks'
-import { SIGN_IN } from '../graphql/product/login.query'
+import { SIGN_UP } from '../graphql/product/login.query'
 import withApollo from '../utils/withApollo'
 import Router from 'next/router'
 
 /* TODO: Move Styles to a separate file */
-const StyledLogin = styled.div`
+const StyledRegister = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -23,7 +23,7 @@ const StyledInput = styled.input`
   border: 1px solid gray;
   margin-bottom: 10px;
 `
-const StyledLoginBtn = styled.button`
+const StyledRegisterBtn = styled.button`
   border: ${(props) => (props.disabled ? '1px solid gray' : '1px solid black')};
   border-radius: 10px;
   width: 150px;
@@ -45,22 +45,26 @@ const StyledSignUp = styled.p`
   }
 `
 
-const StyledLoginMsg = styled(StyledErrorMsg)`
+const StyledRegisterMsg = styled(StyledErrorMsg)`
   font-size: 16px;
 `
+const FULLNAME = 'Fullname'
 const EMAIL = 'Email'
 const PASSWORD = 'Password'
 
-const Login = () => {
+const Register = () => {
+  const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isUsernameValid, setIsUsernameValid] = useState(true)
   const [isEmailValid, setIsEmailValid] = useState(true)
   const [isPasswordValid, setIsPasswordValid] = useState(true)
-  const [isLoginError, setIsLoginError] = useState(false)
+  const [isRegisterError, setIsRegisterError] = useState(false)
 
-  const [login] = useMutation(SIGN_IN, {
+  const [register] = useMutation(SIGN_UP, {
     variables: {
       input: {
+        fullName: fullName,
         email: email,
         password: `${password}`,
       },
@@ -68,6 +72,14 @@ const Login = () => {
   })
 
   const isValidInput = (inputVal, inputType) => {
+    if (inputType === FULLNAME) {
+      if (!inputVal.length) {
+        setIsUsernameValid(false)
+      } else {
+        setIsUsernameValid(true)
+      }
+    }
+
     if (inputType === EMAIL) {
       if (!inputVal.length) {
         setIsEmailValid(false)
@@ -93,42 +105,45 @@ const Login = () => {
 
     isValidInput(inputVal, inputType)
 
-    if (inputType === EMAIL) {
+    if (inputType === FULLNAME) {
+      setFullName(inputVal)
+    } else if (inputType === EMAIL) {
       setEmail(inputVal)
     } else if (inputType === PASSWORD) {
       setPassword(inputVal)
     }
   }
 
-  const onLogin = async () => {
+  const onRegister = async () => {
     try {
-      await login()
+      await register()
       Router.push('/')
     } catch (err) {
-      setIsLoginError(true)
+      setIsRegisterError(true)
     }
-  }
-
-  const goToRegisterPage = () => {
-    Router.push('/register')
   }
 
   return (
     <>
       <Head>
-        <title>Lezada | Login</title>
+        <title>Lezada | Register</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <StyledLogin>
-          <h3>LOGIN</h3>
-          {isLoginError && (
-            <StyledLoginMsg>
-              Incorrect Credential!
-              <StyledSignUp onClick={goToRegisterPage}>Sign Up Instead ?</StyledSignUp>
-            </StyledLoginMsg>
-          )}
+        <StyledRegister>
+          {isRegisterError ? (
+            <StyledRegisterMsg>Something went wrong... Register again?</StyledRegisterMsg>
+          ) : null}
+          <h3>REGISTER</h3>
           <form>
+            <p>Username *</p>
+            {!isUsernameValid ? <StyledErrorMsg>* This field is required</StyledErrorMsg> : null}
+            <StyledInput
+              type="text"
+              value={fullName}
+              onChange={(e) => handleInputChange(e, FULLNAME)}
+            />
+
             <p>Email *</p>
             {!isEmailValid ? <StyledErrorMsg>* This field is required</StyledErrorMsg> : null}
             <StyledInput type="email" value={email} onChange={(e) => handleInputChange(e, EMAIL)} />
@@ -141,14 +156,16 @@ const Login = () => {
               onChange={(e) => handleInputChange(e, PASSWORD)}
             />
           </form>
-          <StyledLoginBtn disabled={!(email.length > 0 && password.length > 0)} onClick={onLogin}>
-            Login
-          </StyledLoginBtn>
-          <StyledSignUp onClick={goToRegisterPage}>Or sign up here</StyledSignUp>
-        </StyledLogin>
+          <StyledRegisterBtn
+            disabled={!(fullName.length > 0 && email.length > 0 && password.length > 0)}
+            onClick={onRegister}
+          >
+            Register
+          </StyledRegisterBtn>
+        </StyledRegister>
       </Layout>
     </>
   )
 }
 
-export default withApollo({ ssr: true })(Login)
+export default withApollo({ ssr: true })(Register)
