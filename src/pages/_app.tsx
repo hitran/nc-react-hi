@@ -7,8 +7,11 @@ function MyApp({ Component, pageProps }) {
   const [isSearchCalled, setIsSearchCalled] = useState(false)
 
   const updateShoppingCart = ({ id, quantity }) => {
-    const updatedShoppingCart = [...shoppingCart, { id, quantity }]
-    setShoppingCart(updatedShoppingCart)
+    const index = shoppingCart.findIndex((item) => item.id === id)
+    if (index === -1) {
+      const updatedShoppingCart = [...shoppingCart, { id, quantity }]
+      setShoppingCart(updatedShoppingCart)
+    }
     return { id, quantity }
   }
 

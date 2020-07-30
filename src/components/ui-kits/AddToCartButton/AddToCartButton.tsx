@@ -14,11 +14,13 @@ interface IAddToCartProps {
 
 const AddToCartButton: React.FC<IAddToCartProps> = (props) => {
   const context = useContext(Context)
+  const handleAddToCart = () => {
+    if (!props.isHeader) {
+      context.updateShoppingCart({ id: props.productId, quantity: 1 })
+    }
+  }
   return (
-    <StyledAddToCartButton
-      isHeader={props.isHeader}
-      onClick={() => context.updateShoppingCart({ id: props.productId, quantity: 1 })}
-    >
+    <StyledAddToCartButton isHeader={props.isHeader} onClick={handleAddToCart}>
       {props.isHeader ? (
         <ShoppingOutlined />
       ) : (
