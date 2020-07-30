@@ -1,6 +1,7 @@
-import functions from './functions'
+// import functions from './functions'
+const functions = require('./functions')
 
-global.fetch = jest.fn(() =>
+global.fetch = jest.fn().mockImplementation(() =>
   Promise.resolve({
     json: () => Promise.resolve({ data: { name: 'Hi Tran' } }),
   })
@@ -43,11 +44,21 @@ describe('createUser function test', () => {
 })
 
 describe('totalCallBack function test', () => {
-  const mockCallback = jest.fn()
-  const num1 = 2
-  test('totalCallBack should work as expected', () => {
-    expect(functions.totalCallBack(num1, mockCallback)).toBe(mockCallback(num1))
+  const cbMock = jest.fn()
+  cbMock.mockImplementation((a) => a)
+  functions.totalCallBack(1, cbMock)
+
+  test('cb called', () => {
+    expect(cbMock).toHaveBeenCalled()
   })
+
+  jest.mock('./functions')
+  const function2 = require('./functions')
+
+  function2.totalCallBack.mockImplementation((a, cb) => {
+    return cb(a)
+  })
+  expect(function2.totalCallBack(1, cbMock)).toBe(1)
 })
 
 describe('fecthUser function test', () => {

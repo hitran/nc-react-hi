@@ -15,4 +15,5 @@ const functions = {
       .catch(() => 'error'),
 }
 
-export default functions
+//export default functions
+module.exports = functions

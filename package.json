@@ -52,11 +52,12 @@
   "scripts": {
     "start": "next start",
     "build": "next build",
-    "test": "react-scripts test",
+    "test": "react-scripts test jest",
     "eject": "react-scripts eject",
     "dev": "next dev",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "test:coverage": "react-scripts test --coverage"
   },
   "eslintConfig": {
     "extends": "react-app"
