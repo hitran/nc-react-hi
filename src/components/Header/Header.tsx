@@ -3,7 +3,6 @@ import { DropdownMenu } from '../ui-kits/DropdownMenu'
 import { FavoriteButton } from '../ui-kits/FavoriteButton'
 import { AddToCartButton } from '../ui-kits/AddToCartButton'
 import { Anchor } from '../ui-kits/Anchor'
-import SearchButton from '../SearchButton/SearchButton'
 import { LoginButton } from '../ui-kits/LoginButton'
 import { MenuButton } from '../ui-kits/MenuButton'
 import {
@@ -21,7 +20,6 @@ const Header: React.FC = () => {
   const toggleMenu = () => {
     const newMenuState = !isMenuShown
     setIsMenuShown(newMenuState)
-    //console.log(isMenuShown)
   }
 
   const categoriesItems = [
@@ -72,12 +70,6 @@ const Header: React.FC = () => {
         <StyledMenuItem>
           <Anchor to="/">
             <FavoriteButton isHeader={true} />
-          </Anchor>
-        </StyledMenuItem>
-
-        <StyledMenuItem onClick={() => onOpenSearch()}>
-          <Anchor to="/">
-            <SearchButton />
           </Anchor>
         </StyledMenuItem>
 
