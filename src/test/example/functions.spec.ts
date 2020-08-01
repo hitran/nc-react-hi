@@ -1,5 +1,4 @@
-// import functions from './functions'
-const functions = require('./functions')
+import functions from './functions'
 
 global.fetch = jest.fn().mockImplementation(() =>
   Promise.resolve({
@@ -52,13 +51,11 @@ describe('totalCallBack function test', () => {
     expect(cbMock).toHaveBeenCalled()
   })
 
-  jest.mock('./functions')
-  const function2 = require('./functions')
-
-  function2.totalCallBack.mockImplementation((a, cb) => {
+  const totalCBMock = jest.fn()
+  totalCBMock.mockImplementation((a, cb) => {
     return cb(a)
   })
-  expect(function2.totalCallBack(1, cbMock)).toBe(1)
+  expect(totalCBMock(1, cbMock)).toBe(1)
 })
 
 describe('fecthUser function test', () => {
